@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// swiftlint:disable type_name
+
 @main
 struct iWorldApp: App {
     var body: some Scene {
@@ -15,3 +17,5 @@ struct iWorldApp: App {
         }
     }
 }
+
+// swiftlint:enable type_name

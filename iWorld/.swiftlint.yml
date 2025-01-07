@@ -1,0 +1,73 @@
+included:
+  - "iWorld/**/*.swift"
+
+excluded:
+  - iWorldTests/
+  - iWorldUITests/
+
+identifier_name:
+  excluded: ["id"]
+
+type_name:
+  max_length: 200
+
+trailing_newline: error
+
+file_length:
+  warning: 400
+  error: 800
+
+line_length:
+  warning: 110
+  error: 120
+  ignores_comments: true
+  ignores_urls: true
+  ignores_function_declarations: true
+  ### works up until this config rule
+  ignores_interpolated_strings: true
+
+force_cast: error
+
+force_try:
+  severity: warning # explicitly
+
+shorthand_operator: warning
+
+type_body_length:
+  warning: 250
+  error: 350
+
+function_parameter_count:
+  warning: 7
+  error: 8
+  ignores_default_parameters: true
+
+cyclomatic_complexity:
+  ignores_case_statements: true
+  warning: 10
+  error: 20
+
+
+function_body_length:
+  warning: 50
+  error: 100
+
+
+trailing_comma:
+  severity: error
+
+large_tuple:
+  warning: 3
+  error: 5
+  
+colon:
+  severity: error
+
+trailing_whitespace:
+  severity: error
+
+nesting:
+  type_level:
+    warning: 2
+    error: 4
+
