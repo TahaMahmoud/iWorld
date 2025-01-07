@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE2C65EB2D2DBF1F004CC182 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C65EA2D2DBF1F004CC182 /* DesignSystem */; };
 		EEF8CE9A2D2D8FA8002D22AF /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE992D2D8FA8002D22AF /* Core */; };
 		EEF8CE9C2D2D8FA8002D22AF /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9B2D2D8FA8002D22AF /* DataPersistence */; };
 		EEF8CE9E2D2D8FA8002D22AF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9D2D2D8FA8002D22AF /* Logger */; };
@@ -59,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE2C65EB2D2DBF1F004CC182 /* DesignSystem in Frameworks */,
 				EEF8CE9E2D2D8FA8002D22AF /* Logger in Frameworks */,
 				EEF8CE9C2D2D8FA8002D22AF /* DataPersistence in Frameworks */,
 				EEF8CEA02D2D8FA8002D22AF /* Networking in Frameworks */,
@@ -128,6 +130,7 @@
 				EEF8CE9B2D2D8FA8002D22AF /* DataPersistence */,
 				EEF8CE9D2D2D8FA8002D22AF /* Logger */,
 				EEF8CE9F2D2D8FA8002D22AF /* Networking */,
+				EE2C65EA2D2DBF1F004CC182 /* DesignSystem */,
 			);
 			productName = iWorld;
 			productReference = EEF8CDCB2D2D83BC002D22AF /* iWorld.app */;
@@ -213,6 +216,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */,
+				EE2C65E92D2DBF1F004CC182 /* XCLocalSwiftPackageReference "DesignSystem" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EEF8CDCC2D2D83BC002D22AF /* Products */;
@@ -609,6 +613,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		EE2C65E92D2DBF1F004CC182 /* XCLocalSwiftPackageReference "DesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = DesignSystem;
+		};
 		EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Core;
@@ -616,6 +624,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EE2C65EA2D2DBF1F004CC182 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
 		EEF8CE992D2D8FA8002D22AF /* Core */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Core;
