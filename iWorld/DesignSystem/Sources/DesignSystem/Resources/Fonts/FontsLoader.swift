@@ -13,7 +13,7 @@ import SwiftUI
 public class FontsManager {
     public static func loadFonts(fontNames: [String]) {
         for fileName in fontNames {
-            if let fontURL = Bundle.module.url(forResource: fileName, withExtension: "ttf"),
+            if let fontURL = Bundle.module.url(forResource: fileName, withExtension: "otf"),
                let fontData = try? Data(contentsOf: fontURL) {
                 if let provider = CGDataProvider(data: fontData as CFData),
                    let font = CGFont(provider) {

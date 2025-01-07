@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EE2C65EB2D2DBF1F004CC182 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C65EA2D2DBF1F004CC182 /* DesignSystem */; };
+		EE2C66222D2DC56A004CC182 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C66212D2DC56A004CC182 /* Factory */; };
 		EEF8CE9A2D2D8FA8002D22AF /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE992D2D8FA8002D22AF /* Core */; };
 		EEF8CE9C2D2D8FA8002D22AF /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9B2D2D8FA8002D22AF /* DataPersistence */; };
 		EEF8CE9E2D2D8FA8002D22AF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9D2D2D8FA8002D22AF /* Logger */; };
@@ -37,9 +38,22 @@
 		EEF8CDE72D2D83BF002D22AF /* iWorldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iWorldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EE2C662B2D2DCA46004CC182 /* Exceptions for "iWorld" folder in "iWorld" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = EEF8CDCA2D2D83BC002D22AF /* iWorld */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		EEF8CDCD2D2D83BC002D22AF /* iWorld */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE2C662B2D2DCA46004CC182 /* Exceptions for "iWorld" folder in "iWorld" target */,
+			);
 			path = iWorld;
 			sourceTree = "<group>";
 		};
@@ -63,6 +77,7 @@
 				EE2C65EB2D2DBF1F004CC182 /* DesignSystem in Frameworks */,
 				EEF8CE9E2D2D8FA8002D22AF /* Logger in Frameworks */,
 				EEF8CE9C2D2D8FA8002D22AF /* DataPersistence in Frameworks */,
+				EE2C66222D2DC56A004CC182 /* Factory in Frameworks */,
 				EEF8CEA02D2D8FA8002D22AF /* Networking in Frameworks */,
 				EEF8CE9A2D2D8FA8002D22AF /* Core in Frameworks */,
 			);
@@ -131,6 +146,7 @@
 				EEF8CE9D2D2D8FA8002D22AF /* Logger */,
 				EEF8CE9F2D2D8FA8002D22AF /* Networking */,
 				EE2C65EA2D2DBF1F004CC182 /* DesignSystem */,
+				EE2C66212D2DC56A004CC182 /* Factory */,
 			);
 			productName = iWorld;
 			productReference = EEF8CDCB2D2D83BC002D22AF /* iWorld.app */;
@@ -217,6 +233,7 @@
 			packageReferences = (
 				EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */,
 				EE2C65E92D2DBF1F004CC182 /* XCLocalSwiftPackageReference "DesignSystem" */,
+				EE2C66202D2DC56A004CC182 /* XCRemoteSwiftPackageReference "Factory" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EEF8CDCC2D2D83BC002D22AF /* Products */;
@@ -445,11 +462,11 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iWorld/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = iWorld;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -478,11 +495,11 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iWorld/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = iWorld;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -623,10 +640,26 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		EE2C66202D2DC56A004CC182 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		EE2C65EA2D2DBF1F004CC182 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;
+		};
+		EE2C66212D2DC56A004CC182 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE2C66202D2DC56A004CC182 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 		EEF8CE992D2D8FA8002D22AF /* Core */ = {
 			isa = XCSwiftPackageProductDependency;

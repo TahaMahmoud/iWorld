@@ -28,7 +28,6 @@ public struct PrimaryButton: View {
                 Text(title ?? "")
             }
             .frame(maxWidth: .infinity, minHeight: 36)
-            .padding(.horizontal, 28)
             .padding(.vertical, 14)
             .background(DesignSystem.colors.primary)
             .foregroundStyle(DesignSystem.colors.secondary)
