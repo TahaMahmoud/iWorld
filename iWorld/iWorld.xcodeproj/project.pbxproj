@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		EEF8CE9A2D2D8FA8002D22AF /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE992D2D8FA8002D22AF /* Core */; };
+		EEF8CE9C2D2D8FA8002D22AF /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9B2D2D8FA8002D22AF /* DataPersistence */; };
+		EEF8CE9E2D2D8FA8002D22AF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9D2D2D8FA8002D22AF /* Logger */; };
+		EEF8CEA02D2D8FA8002D22AF /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9F2D2D8FA8002D22AF /* Networking */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		EEF8CDDE2D2D83BF002D22AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEF8CE9E2D2D8FA8002D22AF /* Logger in Frameworks */,
+				EEF8CE9C2D2D8FA8002D22AF /* DataPersistence in Frameworks */,
+				EEF8CEA02D2D8FA8002D22AF /* Networking in Frameworks */,
+				EEF8CE9A2D2D8FA8002D22AF /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +124,10 @@
 			);
 			name = iWorld;
 			packageProductDependencies = (
+				EEF8CE992D2D8FA8002D22AF /* Core */,
+				EEF8CE9B2D2D8FA8002D22AF /* DataPersistence */,
+				EEF8CE9D2D2D8FA8002D22AF /* Logger */,
+				EEF8CE9F2D2D8FA8002D22AF /* Networking */,
 			);
 			productName = iWorld;
 			productReference = EEF8CDCB2D2D83BC002D22AF /* iWorld.app */;
@@ -196,6 +211,9 @@
 			);
 			mainGroup = EEF8CDC22D2D83BC002D22AF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EEF8CDCC2D2D83BC002D22AF /* Products */;
 			projectDirPath = "";
@@ -430,7 +448,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,7 +481,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -589,6 +607,32 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Core;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EEF8CE992D2D8FA8002D22AF /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
+		EEF8CE9B2D2D8FA8002D22AF /* DataPersistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataPersistence;
+		};
+		EEF8CE9D2D2D8FA8002D22AF /* Logger */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Logger;
+		};
+		EEF8CE9F2D2D8FA8002D22AF /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EEF8CDC32D2D83BC002D22AF /* Project object */;
 }
