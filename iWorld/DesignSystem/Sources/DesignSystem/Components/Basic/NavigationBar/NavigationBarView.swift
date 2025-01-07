@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  NavigationBarView.swift
 //  DesignSystem
 //
 //  Created by Taha Mahmoud on 07/01/2025.
