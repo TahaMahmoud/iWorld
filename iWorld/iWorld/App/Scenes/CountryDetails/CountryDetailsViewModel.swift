@@ -36,12 +36,8 @@ extension CountryDetailsViewModel {
         @Published var countryDetails: CountryDetailsViewModel.CountryPresentation?
         @Published var errorMessage: String = ""
         @Published var showError: Bool = false
-
-        let router: RouterProtocol
-
-        init(router: RouterProtocol) {
-            self.router = router
-        }
+        @Published var shouldBack: Bool = false
+        @Published var selectedCountryCode: String?
     }
 }
 
@@ -83,12 +79,9 @@ class CountryDetailsViewModel: ViewModel, CountryDetailsViewModelProtocol {
     @Injected(\.removeFavouriteUseCase) private var removeFavouriteUseCase
     @Injected(\.isSavedCountryUseCase) private var isSavedUseCase
 
-    init(
-        countryCode: String,
-        router: RouterProtocol
-    ) {
+    init(countryCode: String) {
         input = .init()
-        output = .init(router: router)
+        output = .init()
         self.countryCode = countryCode
 
         super.init()
@@ -166,7 +159,7 @@ private extension CountryDetailsViewModel {
             .sink { [weak self] in
                 guard let self else { return }
 
-                output.router.navigateBack()
+                output.shouldBack = true
             }
             .store(in: &cancellables)
     }
@@ -191,7 +184,7 @@ private extension CountryDetailsViewModel {
                     !countryCode.isEmpty
                 else { return }
 
-                output.router.navigate(to: .countryDetails(countryCode: countryCode))
+                output.selectedCountryCode = countryCode
             }
             .store(in: &cancellables)
     }

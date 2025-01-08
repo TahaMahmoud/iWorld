@@ -11,6 +11,7 @@ import SwiftUI
 struct CountryDetailsView: View {
     @StateObject private var input: CountryDetailsViewModel.Input
     @StateObject private var output: CountryDetailsViewModel.Output
+    @EnvironmentObject var router: Router
 
     init(viewModel: CountryDetailsViewModelProtocol) {
         _input = .init(wrappedValue: viewModel.input)
@@ -69,6 +70,16 @@ struct CountryDetailsView: View {
         .padding(.horizontal, 20)
         .onAppear(perform: input.viewOnAppear.send)
         .navigationBarHidden(true)
+        .onReceive(output.$shouldBack) { shouldBack in
+            if shouldBack {
+                router.navigateBack()
+            }
+        }
+        .onReceive(output.$selectedCountryCode) { selectedCountryCode in
+            if let selectedCountryCode {
+                router.navigate(to: .countryDetails(countryCode: selectedCountryCode))
+            }
+        }
     }
 
     private func makeBackButton() -> some View {
@@ -134,6 +145,7 @@ struct CountryDetailsView: View {
             HStack(spacing: 8) {
                 ForEach(output.countryDetails?.borderCountries ?? [], id: \.id) { country in
                     Button(action: {
+                        input.borderCountrySelected.send(country.id)
                     }, label: {
                         VStack {
                             RemoteImage(url: country.flag)

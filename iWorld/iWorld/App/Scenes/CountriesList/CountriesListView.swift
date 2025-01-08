@@ -12,6 +12,7 @@ import SwiftUI
 struct CountriesListView: View {
     @StateObject private var input: CountriesListViewModel.Input
     @StateObject private var output: CountriesListViewModel.Output
+    @EnvironmentObject var router: Router
 
     init(viewModel: CountriesListViewModelProtocol) {
         _input = .init(wrappedValue: viewModel.input)
@@ -22,7 +23,9 @@ struct CountriesListView: View {
         VStack(alignment: .leading, spacing: 16) {
             NavigationBarView(
                 title: "All Countries",
-                backAction: input.backTapped.send
+                backAction: {
+                    input.backTapped.send()
+                }
             )
 
             makeSearchBar()
@@ -57,6 +60,16 @@ struct CountriesListView: View {
         }
         .padding(.horizontal, 24)
         .navigationBarHidden(true)
+        .onReceive(output.$shouldBack) { shouldBack in
+            if shouldBack {
+                router.navigateBack()
+            }
+        }
+        .onReceive(output.$selectedCountryCode) { selectedCountryCode in
+            if let selectedCountryCode {
+                router.navigate(to: .countryDetails(countryCode: selectedCountryCode))
+            }
+        }
     }
 
     func makeEmptyView() -> some View {
@@ -139,7 +152,7 @@ struct CountriesListView: View {
             LazyVStack {
                 ForEach(output.countries, id: \.id) { country in
                     Button(action: {
-                        input.countryTapped.send(country.id)
+                        router.navigate(to: .countryDetails(countryCode: country.id))
                     }, label: {
                         makeCountryCardView(country: country)
                     })

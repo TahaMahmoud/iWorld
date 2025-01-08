@@ -32,12 +32,8 @@ extension FavouritesViewModel {
     class Output: ObservableObject {
         @Published var state: ViewState = .loading
         @Published var countries: [CountryViewModel] = []
-
-        let router: RouterProtocol
-
-        init(router: RouterProtocol) {
-            self.router = router
-        }
+        @Published var shouldBack: Bool = false
+        @Published var selectedCountryCode: String?
     }
 }
 
@@ -56,9 +52,9 @@ class FavouritesViewModel: ViewModel, FavouritesViewModelProtocol {
     @Injected(\.getSavedCountriesUseCase) private var getSavedCountriesUseCase
     @Injected(\.removeFavouriteUseCase) private var removeFavouriteUseCase
 
-    init(router: RouterProtocol) {
+    override init() {
         input = .init()
-        output = .init(router: router)
+        output = .init()
 
         super.init()
         setupObservables()
@@ -108,7 +104,7 @@ private extension FavouritesViewModel {
             .sink { [weak self] in
                 guard let self else { return }
 
-                output.router.navigateBack()
+                output.shouldBack = true
             }
             .store(in: &cancellables)
     }
@@ -134,7 +130,7 @@ private extension FavouritesViewModel {
                     let countryCode, !countryCode.isEmpty
                 else { return }
 
-                output.router.navigate(to: .countryDetails(countryCode: countryCode))
+                output.selectedCountryCode = countryCode
             }
             .store(in: &cancellables)
     }

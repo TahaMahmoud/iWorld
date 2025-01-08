@@ -12,6 +12,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var input: HomeViewModel.Input
     @StateObject private var output: HomeViewModel.Output
+    @EnvironmentObject var router: Router
 
     init(viewModel: HomeViewModelProtocol) {
         _input = .init(wrappedValue: viewModel.input)
@@ -46,6 +47,21 @@ struct HomeView: View {
         .padding(.vertical, 16)
         .padding(.horizontal, 24)
         .navigationBarHidden(true)
+        .onReceive(output.$showAllCountries) { showAllCountries in
+            if showAllCountries {
+                router.navigate(to: .countriesList)
+            }
+        }
+        .onReceive(output.$showSavedCountries) { showSavedCountries in
+            if showSavedCountries {
+                router.navigate(to: .countriesList)
+            }
+        }
+        .onReceive(output.$selectedCountryCode) { selectedCountryCode in
+            if let selectedCountryCode {
+                router.navigate(to: .countryDetails(countryCode: selectedCountryCode))
+            }
+        }
     }
 
     func makeEmptyView() -> some View {
@@ -252,7 +268,7 @@ struct HomeView: View {
                             color: DesignSystem.colors.gold,
                             padding: 6,
                             action: {
-                                input.removeHighlightTapped.send(country)
+                                input.removeSavedTapped.send(country)
                             }
                         )
                         .frame(width: 30, height: 30)

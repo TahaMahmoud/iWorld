@@ -12,6 +12,7 @@ import SwiftUI
 struct FavouritesView: View {
     @StateObject private var input: FavouritesViewModel.Input
     @StateObject private var output: FavouritesViewModel.Output
+    @EnvironmentObject var router: Router
 
     init(viewModel: FavouritesViewModelProtocol) {
         _input = .init(wrappedValue: viewModel.input)
@@ -48,6 +49,16 @@ struct FavouritesView: View {
         }
         .padding(.horizontal, 24)
         .navigationBarHidden(true)
+        .onReceive(output.$shouldBack) { shouldBack in
+            if shouldBack {
+                router.navigateBack()
+            }
+        }
+        .onReceive(output.$selectedCountryCode) { selectedCountryCode in
+            if let selectedCountryCode {
+                router.navigate(to: .countryDetails(countryCode: selectedCountryCode))
+            }
+        }
     }
 
     func makeEmptyView() -> some View {

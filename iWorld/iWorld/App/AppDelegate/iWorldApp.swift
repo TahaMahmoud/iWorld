@@ -24,13 +24,13 @@ struct IMoviesApp: App {
                     case .onboarding:
                         OnboardingView()
                     case .home:
-                        HomeView(viewModel: HomeViewModel(router: router))
+                        HomeView(viewModel: HomeViewModel())
                     case .countriesList:
-                        CountriesListView(viewModel: CountriesListViewModel(router: router))
+                        CountriesListView(viewModel: CountriesListViewModel())
                     case let .countryDetails(countryCode):
-                        CountryDetailsView(viewModel: CountryDetailsViewModel(countryCode: countryCode, router: router))
+                        CountryDetailsView(viewModel: CountryDetailsViewModel(countryCode: countryCode))
                     case .savedCountries:
-                        FavouritesView(viewModel: FavouritesViewModel(router: router))
+                        FavouritesView(viewModel: FavouritesViewModel())
                     }
                 }
             }

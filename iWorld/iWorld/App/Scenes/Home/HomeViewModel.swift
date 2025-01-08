@@ -20,7 +20,6 @@ protocol HomeViewModelProtocol {
 extension HomeViewModel {
     class Input: ObservableObject {
         let viewOnAppear: AnyUIEvent<Void> = .create()
-        let backTapped: AnyUIEvent<Void> = .create()
         let enableLocationTapped: AnyUIEvent<Void> = .create()
         let countryTapped: AnyUIEvent<CountryViewModel> = .create()
         let removeHighlightTapped: AnyUIEvent<CountryViewModel> = .create()
@@ -38,12 +37,9 @@ extension HomeViewModel {
         @Published var highlightedCountries: [CountryViewModel] = []
         @Published var savedCountries: [CountryViewModel] = []
         @Published var discoverCountries: [CountryViewModel] = []
-
-        let router: RouterProtocol
-
-        init(router: RouterProtocol) {
-            self.router = router
-        }
+        @Published var showSavedCountries: Bool = false
+        @Published var showAllCountries: Bool = false
+        @Published var selectedCountryCode: String?
     }
 }
 
@@ -68,9 +64,9 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
 
     @Injected(\.getCountriesUseCase) private var getCountriesUseCase
 
-    init(router: RouterProtocol) {
+    override init() {
         input = .init()
-        output = .init(router: router)
+        output = .init()
 
         super.init()
         setupObservables()
@@ -119,23 +115,12 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
 private extension HomeViewModel {
     func setupObservables() {
         observeAppear()
-        observeBackTapped()
         observeCountryTapped()
         observeRemoveHighlightTapped()
         observeEnableLocationTapped()
         observeSeeAllSavedTapped()
         observeSeeAllCountriesTapped()
-    }
-
-    func observeBackTapped() {
-        input
-            .backTapped
-            .sink { [weak self] in
-                guard let self else { return }
-
-                output.router.navigateBack()
-            }
-            .store(in: &cancellables)
+        observeRemoveSavedTapped()
     }
 
     func observeAppear() {
@@ -159,7 +144,7 @@ private extension HomeViewModel {
                     !country.id.isEmpty
                 else { return }
 
-                output.router.navigate(to: .countryDetails(countryCode: country.id))
+                output.selectedCountryCode = country.id
             }
             .store(in: &cancellables)
     }
@@ -209,7 +194,7 @@ private extension HomeViewModel {
             .sink { [weak self] _ in
                 guard let self else { return }
 
-                output.router.navigate(to: .savedCountries)
+                output.showSavedCountries = true
             }
             .store(in: &cancellables)
     }
@@ -220,7 +205,7 @@ private extension HomeViewModel {
             .sink { [weak self] _ in
                 guard let self else { return }
 
-                output.router.navigate(to: .countriesList)
+                output.showAllCountries = true
             }
             .store(in: &cancellables)
     }
