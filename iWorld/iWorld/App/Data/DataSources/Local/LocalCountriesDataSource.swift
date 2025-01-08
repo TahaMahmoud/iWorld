@@ -8,6 +8,8 @@
 import Foundation
 
 protocol LocalCountriesDataSourceProtocol {
+    func getLocalCountries() -> Countries
+
     func getHighlighted() -> Countries
     func getSaved() -> Countries
 
@@ -19,6 +21,10 @@ protocol LocalCountriesDataSourceProtocol {
 }
 
 struct LocalCountriesDataSource: LocalCountriesDataSourceProtocol {
+    func getLocalCountries() -> Countries {
+        []
+    }
+
     func getHighlighted() -> Countries {
         []
     }
