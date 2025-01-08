@@ -8,9 +8,10 @@
 // swiftlint: disable identifier_name
 
 import Foundation
+import DataPersistence
 
 // MARK: - Country
-struct Country: Codable, Identifiable {
+struct Country: Codable, Identifiable, Cachable {
     var id: String { alpha3Code ?? UUID().uuidString }
 
     let name: String?

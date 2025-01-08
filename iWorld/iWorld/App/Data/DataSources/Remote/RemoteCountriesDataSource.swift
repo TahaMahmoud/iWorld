@@ -28,7 +28,7 @@ struct RemoteCountriesDataSource: RemoteCountriesDataSourceProtocol {
         switch result {
         case let .success(countries):
             return countries
-        case let .failure(error):
+        case .failure:
             return []
         }
     }

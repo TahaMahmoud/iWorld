@@ -8,9 +8,14 @@
 import Foundation
 import Factory
 import Networking
+import DataPersistence
 
 extension Container {
     var networkManager: Factory<NetworkManagerProtocol> {
         self { NetworkManager(responseHandler: NetworkResponseHandler(), authProvider: nil) }.shared
+    }
+
+    var dataManager: Factory<DataPersistenceManager> {
+        self { DataPersistenceManager() }
     }
 }

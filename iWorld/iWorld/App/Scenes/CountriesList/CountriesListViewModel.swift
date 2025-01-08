@@ -7,8 +7,8 @@
 
 import Combine
 import Core
-import Foundation
 import Factory
+import Foundation
 
 protocol CountriesListViewModelProtocol {
     var input: CountriesListViewModel.Input { get }
@@ -22,6 +22,8 @@ extension CountriesListViewModel {
         let viewOnAppear: AnyUIEvent<Void> = .create()
         let backTapped: AnyUIEvent<Void> = .create()
         let countryTapped: AnyUIEvent<String?> = .create()
+        let saveCountryTapped: AnyUIEvent<CountryViewModel> = .create()
+        let highlightCountryTapped: AnyUIEvent<CountryViewModel> = .create()
         @Published var searchText: String = ""
         @Published var selectedRegion: Region = .africa
     }
@@ -34,6 +36,8 @@ extension CountriesListViewModel {
         @Published var state: ViewState = .loading
         @Published var countries: [CountryViewModel] = []
         @Published var regions: [Region] = []
+        @Published var errorMessage: String = ""
+        @Published var showError: Bool = false
 
         let router: RouterProtocol
 
@@ -76,9 +80,7 @@ class CountriesListViewModel: ViewModel, CountriesListViewModelProtocol {
         setupObservables()
     }
 
-    func getCountriesData() {
-        output.state = .loading
-
+    func loadCountriesData() {
         Task { @MainActor [weak self] in
             guard let self else { return }
 
@@ -107,6 +109,29 @@ class CountriesListViewModel: ViewModel, CountriesListViewModelProtocol {
 
         return mappedCountries
     }
+
+    func saveCountry(countryCode: String) {
+        saveCountryUseCase.execute(countryCode: countryCode)
+    }
+
+    func removeSavedCountry(countryCode: String) {
+        removeFavouriteUseCase.execute(countryCode: countryCode)
+    }
+
+    func highlighCountry(countryCode: String) {
+        do {
+            try highlightCountryUseCase.execute(countryCode: countryCode)
+        } catch let error {
+            if case AppError.highlightsLimitExceeded = error {
+                output.errorMessage = "Limit of highlighted countries reached"
+                output.showError = true
+            }
+        }
+    }
+
+    func removeHighlitedCountry(countryCode: String) {
+        removeHighlightUseCase.execute(countryCode: countryCode)
+    }
 }
 
 private extension CountriesListViewModel {
@@ -116,6 +141,8 @@ private extension CountriesListViewModel {
         observeRegionChanged()
         observeSearchTextChanged()
         observeCountryTapped()
+        observeSaveCountryTapped()
+        observeHighlightCountryTap()
     }
 
     func observeBackTapped() {
@@ -135,7 +162,8 @@ private extension CountriesListViewModel {
             .sink { [weak self] in
                 guard let self else { return }
 
-                getCountriesData()
+                output.state = .loading
+                loadCountriesData()
             }
             .store(in: &cancellables)
     }
@@ -181,6 +209,46 @@ private extension CountriesListViewModel {
                 else { return }
 
                 output.router.navigate(to: .countryDetails(countryCode: countryCode))
+            }
+            .store(in: &cancellables)
+    }
+
+    func observeSaveCountryTapped() {
+        input
+            .saveCountryTapped
+            .sink { [weak self] country in
+                guard
+                    let self,
+                    !country.id.isEmpty
+                else { return }
+
+                if country.isSaved {
+                    removeSavedCountry(countryCode: country.id)
+                } else {
+                    saveCountry(countryCode: country.id)
+                }
+
+                loadCountriesData()
+            }
+            .store(in: &cancellables)
+    }
+
+    func observeHighlightCountryTap() {
+        input
+            .highlightCountryTapped
+            .sink { [weak self] country in
+                guard
+                    let self,
+                    !country.id.isEmpty
+                else { return }
+
+                if country.isHighlighted {
+                    removeHighlitedCountry(countryCode: country.id)
+                } else {
+                    highlighCountry(countryCode: country.id)
+                }
+
+                loadCountriesData()
             }
             .store(in: &cancellables)
     }

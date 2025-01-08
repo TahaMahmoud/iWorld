@@ -47,6 +47,11 @@ struct CountriesListView: View {
 
             Spacer()
         }
+        .alert(output.errorMessage, isPresented: $output.showError) {
+            Button("OK", role: .cancel) {
+                output.showError = false
+            }
+        }
         .padding(.horizontal, 24)
         .onAppear(perform: input.viewOnAppear.send)
         .navigationBarHidden(true)
@@ -82,7 +87,7 @@ struct CountriesListView: View {
 
     func makeLoadingView() -> some View {
         VStack {
-            ForEach(0..<10) {_ in
+            ForEach(0 ..< 10) { _ in
                 ShimmerRectangularView()
             }
         }
@@ -157,6 +162,7 @@ struct CountriesListView: View {
                 icon: Image(systemName: country.isSaved ? "star.fill" : "star"),
                 color: DesignSystem.colors.gold,
                 action: {
+                    input.saveCountryTapped.send(country)
                 }
             )
             .frame(width: 32, height: 32)
@@ -165,6 +171,7 @@ struct CountriesListView: View {
                 icon: Image(systemName: country.isHighlighted ? "heart.fill" : "heart"),
                 color: DesignSystem.colors.dangor,
                 action: {
+                    input.highlightCountryTapped.send(country)
                 }
             )
             .frame(width: 32, height: 32)

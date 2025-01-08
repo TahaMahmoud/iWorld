@@ -14,9 +14,9 @@ protocol CountriesRepositoryProtocol {
     func getHighlightedCountries() -> [Country]
     func getSavedCountries(limit: Int?) -> [Country]
 
-    func highlightCountry(withCode numericCode: String)
-    func saveCountry(withCode numericCode: String)
+    func highlightCountry(withCode countryCode: String)
+    func saveCountry(withCode countryCode: String)
 
-    func removeFromHighlighted(withCode numericCode: String)
-    func removeFromSaved(withCode numericCode: String)
+    func removeFromHighlighted(withCode countryCode: String)
+    func removeFromSaved(withCode countryCode: String)
 }

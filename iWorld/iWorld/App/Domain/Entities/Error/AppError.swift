@@ -9,4 +9,5 @@ enum AppError: Error, Decodable {
     case unexpected
     case locationNotAvailable
     case countryDetailsNotAvailable
+    case highlightsLimitExceeded
 }

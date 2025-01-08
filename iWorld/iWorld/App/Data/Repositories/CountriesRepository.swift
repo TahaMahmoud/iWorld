@@ -12,7 +12,7 @@ class CountriesRepository: CountriesRepositoryProtocol {
     @Injected(\.remoteDataSource) private var remoteCountriesDataSource
     @Injected(\.localDataSource) private var localCountriesDataSource
 
-    var counrties: [Country] = []
+    var countries: [Country] = []
 
     init() {
         loadCountriesData()
@@ -25,30 +25,58 @@ class CountriesRepository: CountriesRepositoryProtocol {
     }
 
     func fetchCountriesData() async {
-        counrties = await remoteCountriesDataSource.fetchCountries()
+        countries = await remoteCountriesDataSource.fetchCountries()
     }
 
     func getCountries() -> [Country] {
-        counrties
+        countries
     }
 
     func getHighlightedCountries() -> [Country] {
-        []
+        localCountriesDataSource.getHighlighted()
     }
 
     func getSavedCountries(limit: Int? = nil) -> [Country] {
-        []
+        localCountriesDataSource.getSaved()
     }
 
-    func highlightCountry(withCode numericCode: String) {
+    func highlightCountry(withCode countryCode: String) {
+        let country = countries.first {
+            $0.alpha3Code == countryCode
+        }
+
+        guard let country else { return }
+
+        localCountriesDataSource.highlight(country)
     }
 
-    func saveCountry(withCode numericCode: String) {
+    func saveCountry(withCode countryCode: String) {
+        let country = countries.first {
+            $0.alpha3Code == countryCode
+        }
+
+        guard let country else { return }
+
+        localCountriesDataSource.save(country)
     }
 
-    func removeFromHighlighted(withCode numericCode: String) {
+    func removeFromHighlighted(withCode countryCode: String) {
+        let country = countries.first {
+            $0.alpha3Code == countryCode
+        }
+
+        guard let country else { return }
+
+        localCountriesDataSource.removeHighlighted(country)
     }
 
-    func removeFromSaved(withCode numericCode: String) {
+    func removeFromSaved(withCode countryCode: String) {
+        let country = countries.first {
+            $0.alpha3Code == countryCode
+        }
+
+        guard let country else { return }
+
+        localCountriesDataSource.removeSaved(country)
     }
 }
