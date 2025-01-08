@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension View {
+public extension View {
     func roundedCorner(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
@@ -17,7 +17,7 @@ extension View {
     }
 }
 
-extension View {
+public extension View {
     /// Hide or show the view based on a boolean value.
     ///
     /// Example for visibility:

@@ -36,7 +36,7 @@ struct OnboardingView: View {
                         .padding(.trailing, 20)
 
                     PrimaryButton(title: "Explore", action: {
-                        router.navigate(to: .countriesList)
+                        router.navigate(to: .home)
                     })
                 }
                 .padding(.bottom, 32)

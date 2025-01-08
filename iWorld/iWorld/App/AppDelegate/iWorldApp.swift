@@ -24,7 +24,7 @@ struct IMoviesApp: App {
                     case .onboarding:
                         OnboardingView()
                     case .home:
-                        EmptyView()
+                        HomeView(viewModel: HomeViewModel(router: router))
                     case .countriesList:
                         CountriesListView(viewModel: CountriesListViewModel(router: router))
                     case let .countryDetails(countryCode):

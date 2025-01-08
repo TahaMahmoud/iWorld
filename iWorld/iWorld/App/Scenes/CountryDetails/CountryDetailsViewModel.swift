@@ -107,7 +107,7 @@ class CountryDetailsViewModel: ViewModel, CountryDetailsViewModelProtocol {
             name: country?.name ?? "",
             capital: country?.capital ?? "",
             region: country?.region?.rawValue ?? "",
-            currency: "\(country?.currencies?.first?.name ?? "") (\(country?.currencies?.first?.symbol ?? "")",
+            currency: "\(country?.currencies?.first?.name ?? "") (\(country?.currencies?.first?.symbol ?? ""))",
             isHighlighted: isHighlightedUseCase.execute(countryCode: country?.alpha3Code ?? ""),
             isSaved: isSavedUseCase.execute(countryCode: country?.alpha3Code ?? ""),
             borderCountries: mapBorderCountries(
