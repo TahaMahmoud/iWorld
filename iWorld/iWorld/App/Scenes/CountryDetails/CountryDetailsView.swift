@@ -18,39 +18,47 @@ struct CountryDetailsView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            ZStack {
-                RemoteImage(url: output.countryDetails?.flag ?? "")
-                    .frame(height: 300)
+        VStack(alignment: .leading) {
+            HStack {
+                makeBackButton()
+                Spacer()
 
-                VStack {
-                    makeBackButton()
-
-                    Spacer()
-
-                    HStack {
-                        IconButton(
-                            icon: Image(systemName: output.countryDetails?.isSaved ?? false ? "star.fill" : "star"),
-                            color: DesignSystem.colors.gold,
-                            action: {
-                            }
-                        )
-                        .frame(width: 44, height: 44)
-
-                        IconButton(
-                            icon: Image(systemName: output.countryDetails?.isHighlighted ?? false ? "heart.fill" : "heart"),
-                            color: DesignSystem.colors.dangor,
-                            action: {
-                            }
-                        )
-                        .frame(width: 44, height: 44)
+                IconButton(
+                    icon: Image(systemName: output.countryDetails?.isSaved ?? false ? "star.fill" : "star"),
+                    color: DesignSystem.colors.gold,
+                    padding: 12,
+                    action: {
                     }
-                }
+                )
+                .frame(width: 44, height: 44)
+
+                IconButton(
+                    icon: Image(systemName: output.countryDetails?.isHighlighted ?? false ? "heart.fill" : "heart"),
+                    color: DesignSystem.colors.dangor,
+                    padding: 12,
+                    action: {
+                    }
+                )
+                .frame(width: 44, height: 44)
             }
 
+            RemoteImage(url: output.countryDetails?.flag ?? "", contentMode: .fit)
+                .cornerRadius(16)
+                .shadow(color: DesignSystem.colors.black.opacity(0.1), radius: 16, x: 0, y: 10)
+                .frame(height: 300)
+
             makeCountryDetails()
+
+            Text("Borders")
+                .font(Font.gellix(weight: .semiBold, size: 24))
+                .foregroundStyle(DesignSystem.colors.black)
+                .padding(.top, 16)
+
             makeBorderCountriesView()
+
+            Spacer()
         }
+        .padding(.top, 16)
         .padding(.horizontal, 20)
         .onAppear(perform: input.viewOnAppear.send)
         .navigationBarHidden(true)
@@ -68,17 +76,19 @@ struct CountryDetailsView: View {
     }
 
     private func makeCountryDetails() -> some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 16) {
             HStack {
-                VStack {
+                VStack(alignment: .leading) {
                     Text(output.countryDetails?.name ?? "")
                         .font(Font.gellix(weight: .semiBold, size: 24))
                         .foregroundStyle(DesignSystem.colors.black)
 
                     Text(output.countryDetails?.capital ?? "")
-                        .font(Font.gellix(weight: .regular, size: 12))
+                        .font(Font.gellix(weight: .regular, size: 14))
                         .foregroundStyle(DesignSystem.colors.darkGray)
                 }
+
+                Spacer()
 
                 Button(action: {
                 }, label: {
@@ -100,7 +110,7 @@ struct CountryDetailsView: View {
     }
 
     private func makeTitleValueView(title: String, value: String) -> some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(Font.gellix(weight: .medium, size: 14))
                 .foregroundStyle(DesignSystem.colors.black)
@@ -112,8 +122,8 @@ struct CountryDetailsView: View {
     }
 
     private func makeBorderCountriesView() -> some View {
-        ScrollView {
-            LazyVStack {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
                 ForEach(output.countryDetails?.borderCountries ?? [], id: \.id) { country in
                     Button(action: {
                     }, label: {
@@ -125,9 +135,13 @@ struct CountryDetailsView: View {
                             Text(country.name)
                                 .font(Font.gellix(weight: .medium, size: 14))
                                 .foregroundStyle(DesignSystem.colors.primaryGray)
+                                .lineLimit(1)
                         }
-                        .padding(12)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 20)
+                        .background(DesignSystem.colors.secondary)
                         .cornerRadius(16)
+                        .frame(maxWidth: 140)
                     })
                 }
             }

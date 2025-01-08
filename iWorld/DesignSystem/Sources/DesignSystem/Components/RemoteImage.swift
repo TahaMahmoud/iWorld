@@ -10,12 +10,17 @@ import SwiftUI
 public struct RemoteImage: View {
     public let url: String
     public var placeholder: Image = Image(systemName: "exclamationmark.triangle")
+    public var contentMode: ContentMode
 
-    public init(url: String,
-                placeholder: Image = Image(
-                    systemName: "exclamationmark.triangle")) {
+    public init(
+        url: String,
+        placeholder: Image = Image(
+            systemName: "exclamationmark.triangle"),
+        contentMode: ContentMode = .fill
+    ) {
         self.url = url
         self.placeholder = placeholder
+        self.contentMode = contentMode
     }
 
     public var body: some View {
@@ -23,7 +28,7 @@ public struct RemoteImage: View {
             if let image = phase.image {
                 image
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: contentMode)
                     .background(.clear)
             } else if phase.error != nil {
                 placeholder

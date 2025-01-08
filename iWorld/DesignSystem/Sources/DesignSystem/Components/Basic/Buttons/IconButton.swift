@@ -12,10 +12,12 @@ public struct IconButton: View {
     let icon: Image
     let color: Color
     let action: Action
-
-    public init(icon: Image, color: Color, action: @escaping Action) {
+    let padding: CGFloat
+    
+    public init(icon: Image, color: Color, padding: CGFloat = 8, action: @escaping Action) {
         self.icon = icon
         self.color = color
+        self.padding = padding
         self.action = action
     }
     
@@ -24,7 +26,7 @@ public struct IconButton: View {
             icon
                 .resizable()
                 .foregroundStyle(color)
-                .padding(8)
+                .padding(padding)
                 .background(DesignSystem.colors.white)
                 .clipShape(Circle())
                 .shadow(color: DesignSystem.colors.primary.opacity(0.2), radius: 25, x: 0, y: 6)
