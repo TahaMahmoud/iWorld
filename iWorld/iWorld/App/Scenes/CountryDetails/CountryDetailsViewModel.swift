@@ -244,7 +244,7 @@ private extension CountryDetailsViewModel {
                     let self,
                     let location = output.countryDetails?.location
                 else { return }
-                
+
                 let ountryLocationURL = "https://www.google.com/maps/@\(location.latitude),\(location.longitude),10z"
                 URLUtility.openURL(ountryLocationURL)
             }

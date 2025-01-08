@@ -30,7 +30,7 @@ struct IMoviesApp: App {
                     case let .countryDetails(countryCode):
                         CountryDetailsView(viewModel: CountryDetailsViewModel(countryCode: countryCode, router: router))
                     case .savedCountries:
-                        EmptyView()
+                        FavouritesView(viewModel: FavouritesViewModel(router: router))
                     }
                 }
             }

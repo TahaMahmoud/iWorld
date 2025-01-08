@@ -148,7 +148,7 @@ struct HomeView: View {
                         }, label: {
                             makeHighlightedCountryView(country: country)
                                 .cornerRadius(16)
-                                .frame(height: 200)
+                                .frame(height: output.highlightedCountries.count > 1 ? 200 : UIScreen.main.bounds.size.width - 32)
                                 .shadow(color: DesignSystem.colors.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         })
                     }
@@ -233,6 +233,7 @@ struct HomeView: View {
                 }
             }
         }
+        .isHidden(output.savedCountries.isEmpty, remove: true)
     }
 
     private func makeCountryView(country: HomeViewModel.CountryViewModel, isSaved: Bool) -> some View {
@@ -261,7 +262,7 @@ struct HomeView: View {
                 }
                 .padding(.vertical, 12)
                 .padding(.horizontal, 12)
-                .isHidden(!isSaved)
+                .isHidden(!isSaved, remove: true)
             }
 
             HStack(alignment: .bottom) {
