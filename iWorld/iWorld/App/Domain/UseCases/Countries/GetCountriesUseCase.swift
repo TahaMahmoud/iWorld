@@ -8,9 +8,9 @@
 import Foundation
 
 protocol GetCountriesUseCaseProtocol {
-    func execute(limit: Int?) -> Countries
-    func execute(query: String) -> Countries
-    func execute(region: Region) -> Countries
+    @discardableResult func execute(limit: Int?) async -> [Country]
+    func execute(query: String, region: Region) -> [Country]
+    func execute(region: Region) -> [Country]
 }
 
 struct GetCountriesUseCase: GetCountriesUseCaseProtocol {
@@ -20,20 +20,28 @@ struct GetCountriesUseCase: GetCountriesUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(limit: Int?) -> Countries {
-        let countries = repository.getCountries()
+    @discardableResult
+    func execute(limit: Int?) async -> [Country] {
+        var countries = repository.getCountries()
+
+        if countries.isEmpty {
+            await repository.fetchCountriesData()
+            countries = repository.getCountries()
+        }
+
         return Array(countries.prefix(limit ?? countries.count))
     }
 
-    func execute(query: String) -> Countries {
+    func execute(query: String, region: Region) -> [Country] {
         let countries = repository.getCountries()
 
         return countries.filter {
-            $0.name?.lowercased().contains(query.lowercased()) ?? false
+            ($0.name?.lowercased().contains(query.lowercased()) ?? false) &&
+            ($0.region == region)
         }
     }
 
-    func execute(region: Region) -> Countries {
+    func execute(region: Region) -> [Country] {
         let countries = repository.getCountries()
 
         return countries.filter {

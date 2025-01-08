@@ -8,12 +8,18 @@
 import SwiftUI
 import Core
 
-struct IconButton: View {
+public struct IconButton: View {
     let icon: Image
     let color: Color
     let action: Action
 
-    var body: some View {
+    public init(icon: Image, color: Color, action: @escaping Action) {
+        self.icon = icon
+        self.color = color
+        self.action = action
+    }
+    
+    public var body: some View {
         Button(action: action) {
             icon
                 .resizable()

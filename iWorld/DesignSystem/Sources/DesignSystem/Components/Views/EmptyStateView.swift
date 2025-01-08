@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct EmptyStateView: View {
+public struct EmptyStateView: View {
     let image: Image?
     let title: String?
     let subtitle: String?
-    
-    init(
-        image: Image?,
+
+    public init(
+        image: Image? = nil,
         title: String? = "",
         subtitle: String? = ""
     ) {
@@ -21,11 +21,11 @@ struct EmptyStateView: View {
         self.title = title
         self.subtitle = subtitle
     }
-    
-    var body: some View {
-        VStack() {
+
+    public var body: some View {
+        VStack {
             image
-            
+
             Text(title ?? "")
                 .foregroundStyle(DesignSystem.colors.black)
                 .font(Font.gellix(weight: .bold, size: 20))

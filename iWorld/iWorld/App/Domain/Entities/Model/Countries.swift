@@ -10,7 +10,9 @@
 import Foundation
 
 // MARK: - Country
-struct Country: Codable {
+struct Country: Codable, Identifiable {
+    var id: String { alpha3Code ?? UUID().uuidString }
+
     let name: String?
     let topLevelDomain: [String]?
     let alpha2Code, alpha3Code: String?
@@ -58,7 +60,9 @@ struct Language: Codable {
     }
 }
 
-enum Region: String, Codable, CaseIterable {
+enum Region: String, Codable, CaseIterable, Identifiable {
+    var id: String { rawValue }
+
     case africa = "Africa"
     case americas = "Americas"
     case antarctic = "Antarctic"
@@ -83,7 +87,5 @@ struct Translations: Codable {
     let fa, de, es, fr: String?
     let ja, it, hu: String?
 }
-
-typealias Countries = [Country]
 
 // swiftlint: enable identifier_name

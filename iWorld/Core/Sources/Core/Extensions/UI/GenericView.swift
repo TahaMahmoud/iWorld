@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct GenericView<
+public struct GenericView<
     LoadingView: View,
     ErrorView: View,
     EmptyView: View,
@@ -20,7 +20,7 @@ struct GenericView<
     private let loadingView: () -> LoadingView
     private let loadedView: () -> LoadedView
 
-    init(
+    public init(
         state: ViewState,
         @ViewBuilder emptyView: @escaping () -> EmptyView,
         @ViewBuilder errorView: @escaping (String?) -> ErrorView,
@@ -34,7 +34,7 @@ struct GenericView<
         self.loadedView = loadedView
     }
 
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 0) {
             switch state {
             case .loading:
@@ -103,7 +103,7 @@ extension GenericView where EmptyView == SwiftUI.EmptyView, ErrorView == SwiftUI
     }
 }
 
-enum ViewState: Equatable {
+public enum ViewState: Equatable {
     case loading
     case loaded
     case empty

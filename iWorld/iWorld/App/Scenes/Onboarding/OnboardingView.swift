@@ -9,6 +9,8 @@ import DesignSystem
 import SwiftUI
 
 struct OnboardingView: View {
+    @EnvironmentObject var router: Router
+    
     var body: some View {
         ZStack {
             Image(.onboarding)
@@ -34,6 +36,7 @@ struct OnboardingView: View {
                         .padding(.trailing, 20)
 
                     PrimaryButton(title: "Explore", action: {
+                        router.navigate(to: .countriesList)
                     })
                 }
                 .padding(.bottom, 32)

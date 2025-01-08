@@ -19,6 +19,8 @@ struct IsSavedCountryUseCase: IsSavedCountryUseCaseProtocol {
     }
 
     func execute(countryCode: String) -> Bool {
+        guard !(countryCode.isEmpty) else { return false }
+
         let savedCountries = repository.getSavedCountries(limit: nil)
 
         return !(savedCountries.filter {

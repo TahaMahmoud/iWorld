@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GetSavedCountriesUseCaseProtocol {
-    func execute(limit: Int?) -> Countries
+    func execute(limit: Int?) -> [Country]
 }
 
 struct GetSavedCountriesUseCase: GetSavedCountriesUseCaseProtocol {
@@ -18,7 +18,7 @@ struct GetSavedCountriesUseCase: GetSavedCountriesUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(limit: Int?) -> Countries {
+    func execute(limit: Int?) -> [Country] {
         repository.getSavedCountries(limit: limit)
     }
 }

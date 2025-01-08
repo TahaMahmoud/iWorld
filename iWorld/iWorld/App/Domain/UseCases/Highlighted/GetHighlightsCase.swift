@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GetHighlightedCountriesProtocol {
-    func execute() -> Countries
+    func execute() -> [Country]
 }
 
 struct GetHighlightedCountries: GetHighlightedCountriesProtocol {
@@ -18,7 +18,7 @@ struct GetHighlightedCountries: GetHighlightedCountriesProtocol {
         self.repository = repository
     }
 
-    func execute() -> Countries {
+    func execute() -> [Country] {
         repository.getHighlightedCountries()
     }
 }

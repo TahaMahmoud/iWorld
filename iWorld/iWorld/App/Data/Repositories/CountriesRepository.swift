@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct CountriesRepository: CountriesRepositoryProtocol {
+class CountriesRepository: CountriesRepositoryProtocol {
     private var remoteCountriesDataSource: RemoteCountriesDataSourceProtocol
     private var localCountriesDataSource: LocalCountriesDataSource
 
-    var counrties: Countries = []
+    var counrties: [Country] = []
 
     init(
         remoteCountriesDataSource: RemoteCountriesDataSourceProtocol = RemoteCountriesDataSource(),
@@ -19,21 +19,29 @@ struct CountriesRepository: CountriesRepositoryProtocol {
     ) {
         self.remoteCountriesDataSource = remoteCountriesDataSource
         self.localCountriesDataSource = localCountriesDataSource
+
+        loadCountriesData()
     }
 
-    mutating func fetchCountriesData() async throws {
-        counrties = []
+    private func loadCountriesData() {
+        Task {
+            await fetchCountriesData()
+        }
     }
 
-    func getCountries() -> Countries {
+    func fetchCountriesData() async {
+        counrties = await remoteCountriesDataSource.fetchCountries()
+    }
+
+    func getCountries() -> [Country] {
         return counrties
     }
 
-    func getHighlightedCountries() -> Countries {
+    func getHighlightedCountries() -> [Country] {
         []
     }
 
-    func getSavedCountries(limit: Int? = nil) -> Countries {
+    func getSavedCountries(limit: Int? = nil) -> [Country] {
         []
     }
 

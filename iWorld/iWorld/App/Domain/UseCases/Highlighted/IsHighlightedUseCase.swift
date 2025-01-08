@@ -19,6 +19,8 @@ struct IsHighlighedUseCase: IsHighlighedUseCaseProtocol {
     }
 
     func execute(countryCode: String) -> Bool {
+        guard !(countryCode.isEmpty) else { return false }
+
         let highlighedCountries = repository.getHighlightedCountries()
 
         return !(highlighedCountries.filter {

@@ -15,7 +15,7 @@ enum CountriesEndpoint {
 
 extension CountriesEndpoint: RemoteEndpoint {
     var baseUrl: URL {
-        let baseURLString = "https://restcountries.com/v2/"
+        let baseURLString = "https://restcountries.com/v2"
         let baseURL = URL(string: baseURLString)
         return baseURL ?? URL(string: "")!
     }

@@ -38,5 +38,5 @@ public struct RemoteImage: View {
 }
 
 #Preview {
-    RemoteImage(url: "https://m.media-amazon.com/images/M/MV5BMjMyOTM4MDMxNV5BMl5BanBnXkFtZTcwNjIyNzExOA@@._V1_FMjpg_UX1000_.jpg")
+    RemoteImage(url: "https://cdn.pixabay.com/photo/2017/02/01/10/00/cartography-2029310_640.png")
 }

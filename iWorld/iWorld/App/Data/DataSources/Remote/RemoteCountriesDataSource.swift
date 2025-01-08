@@ -9,7 +9,7 @@ import Foundation
 import Networking
 
 protocol RemoteCountriesDataSourceProtocol {
-    func fetchCountries() async throws -> Countries
+    func fetchCountries() async -> [Country]
 }
 
 struct RemoteCountriesDataSource: RemoteCountriesDataSourceProtocol {
@@ -21,10 +21,10 @@ struct RemoteCountriesDataSource: RemoteCountriesDataSourceProtocol {
         self.networkingManger = networkingManger
     }
 
-    func fetchCountries() async -> Countries {
+    func fetchCountries() async -> [Country] {
         let endpoint = CountriesEndpoint.allCountries
 
-        let result: Result<Countries, NetworkRequestError<AppError>>
+        let result: Result<[Country], NetworkRequestError<AppError>>
         result = await networkingManger.executeRequest(
             endpoint,
             appErrors: nil

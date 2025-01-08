@@ -8,11 +8,11 @@
 import Foundation
 
 protocol CountriesRepositoryProtocol {
-    mutating func fetchCountriesData() async throws
+    func fetchCountriesData() async
 
-    func getCountries() -> Countries
-    func getHighlightedCountries() -> Countries
-    func getSavedCountries(limit: Int?) -> Countries
+    func getCountries() -> [Country]
+    func getHighlightedCountries() -> [Country]
+    func getSavedCountries(limit: Int?) -> [Country]
 
     func highlightCountry(withCode numericCode: String)
     func saveCountry(withCode numericCode: String)

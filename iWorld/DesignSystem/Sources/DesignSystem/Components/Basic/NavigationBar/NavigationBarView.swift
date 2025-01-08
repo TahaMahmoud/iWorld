@@ -8,11 +8,11 @@
 import SwiftUI
 import Core
 
-struct NavigationBarView: View {
+public struct NavigationBarView: View {
     let title: String
     let backAction: Action
 
-    init(
+    public init(
         title: String = "",
         backAction: @escaping Action
     ) {
@@ -20,7 +20,7 @@ struct NavigationBarView: View {
         self.backAction = backAction
     }
     
-    var body: some View {
+    public var body: some View {
         HStack {
             Button(
                 action: backAction

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GetBordersUseCaseProtocol {
-    func execute(countyCode: String) -> Countries
+    func execute(countyCode: String) -> [Country]
 }
 
 struct GetBordersUseCase: GetBordersUseCaseProtocol {
@@ -18,14 +18,14 @@ struct GetBordersUseCase: GetBordersUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(countyCode: String) -> Countries {
+    func execute(countyCode: String) -> [Country] {
         let countries = repository.getCountries()
 
         let borders = countries.first {
             $0.alpha3Code == countyCode
         }?.borders ?? []
 
-        var borderCountries: Countries = []
+        var borderCountries: [Country] = []
 
         for borderCode in borders {
             let country = countries.first {
