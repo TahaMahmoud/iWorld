@@ -47,13 +47,15 @@ struct CountriesListView: View {
 
             Spacer()
         }
+        .onAppear {
+            input.viewOnAppear.send()
+        }
         .alert(output.errorMessage, isPresented: $output.showError) {
             Button("OK", role: .cancel) {
                 output.showError = false
             }
         }
         .padding(.horizontal, 24)
-        .onAppear(perform: input.viewOnAppear.send)
         .navigationBarHidden(true)
     }
 

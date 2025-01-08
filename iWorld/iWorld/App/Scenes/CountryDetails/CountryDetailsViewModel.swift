@@ -7,8 +7,9 @@
 
 import Combine
 import Core
-import Foundation
+import CoreLocation
 import Factory
+import Foundation
 
 protocol CountryDetailsViewModelProtocol {
     var input: CountryDetailsViewModel.Input { get }
@@ -22,6 +23,9 @@ extension CountryDetailsViewModel {
         let viewOnAppear: AnyUIEvent<Void> = .create()
         let backTapped: AnyUIEvent<Void> = .create()
         let borderCountrySelected: AnyUIEvent<String> = .create()
+        let saveCountryTapped: AnyUIEvent<Void> = .create()
+        let highlightCountryTapped: AnyUIEvent<Void> = .create()
+        let showMapTapped: AnyUIEvent<Void> = .create()
     }
 }
 
@@ -30,6 +34,8 @@ extension CountryDetailsViewModel {
 extension CountryDetailsViewModel {
     class Output: ObservableObject {
         @Published var countryDetails: CountryDetailsViewModel.CountryPresentation?
+        @Published var errorMessage: String = ""
+        @Published var showError: Bool = false
 
         let router: RouterProtocol
 
@@ -47,9 +53,10 @@ extension CountryDetailsViewModel {
         let capital: String
         let region: String
         let currency: String
-        let isHighlighted: Bool
-        let isSaved: Bool
+        var isHighlighted: Bool
+        var isSaved: Bool
         let borderCountries: [BorderCountryPresentation]
+        let location: CLLocationCoordinate2D
     }
 
     struct BorderCountryPresentation: Identifiable {
@@ -105,6 +112,10 @@ class CountryDetailsViewModel: ViewModel, CountryDetailsViewModelProtocol {
             isSaved: isSavedUseCase.execute(countryCode: country?.alpha3Code ?? ""),
             borderCountries: mapBorderCountries(
                 borderCountries: getBordersUseCase.execute(countryCode: country?.alpha3Code ?? "")
+            ),
+            location: CLLocationCoordinate2D(
+                latitude: country?.latlng?.first ?? 26.8206,
+                longitude: country?.latlng?.last ?? 30.8025
             )
         )
     }
@@ -114,6 +125,29 @@ class CountryDetailsViewModel: ViewModel, CountryDetailsViewModelProtocol {
             BorderCountryPresentation(id: $0.id, flag: $0.flags?.png ?? "", name: $0.name ?? "")
         }
     }
+
+    func saveCountry(countryCode: String) {
+        saveCountryUseCase.execute(countryCode: countryCode)
+    }
+
+    func removeSavedCountry(countryCode: String) {
+        removeFavouriteUseCase.execute(countryCode: countryCode)
+    }
+
+    func highlighCountry(countryCode: String) {
+        do {
+            try highlightCountryUseCase.execute(countryCode: countryCode)
+        } catch let error {
+            if case AppError.highlightsLimitExceeded = error {
+                output.errorMessage = "Limit of highlighted countries reached"
+                output.showError = true
+            }
+        }
+    }
+
+    func removeHighlitedCountry(countryCode: String) {
+        removeHighlightUseCase.execute(countryCode: countryCode)
+    }
 }
 
 private extension CountryDetailsViewModel {
@@ -121,6 +155,9 @@ private extension CountryDetailsViewModel {
         observeAppear()
         observeBackTapped()
         observeBorderCountrySelected()
+        observeSaveCountryTapped()
+        observeHighlightCountryTap()
+        observeShowMapTapped()
     }
 
     func observeBackTapped() {
@@ -151,10 +188,65 @@ private extension CountryDetailsViewModel {
             .sink { [weak self] countryCode in
                 guard
                     let self,
-                        !countryCode.isEmpty
+                    !countryCode.isEmpty
                 else { return }
 
                 output.router.navigate(to: .countryDetails(countryCode: countryCode))
+            }
+            .store(in: &cancellables)
+    }
+
+    func observeSaveCountryTapped() {
+        input
+            .saveCountryTapped
+            .sink { [weak self] _ in
+                guard
+                    let self,
+                    !countryCode.isEmpty
+                else { return }
+
+                if output.countryDetails?.isSaved ?? false {
+                    removeSavedCountry(countryCode: countryCode)
+                } else {
+                    saveCountry(countryCode: countryCode)
+                }
+
+                output.countryDetails?.isSaved.toggle()
+            }
+            .store(in: &cancellables)
+    }
+
+    func observeHighlightCountryTap() {
+        input
+            .highlightCountryTapped
+            .sink { [weak self] in
+                guard
+                    let self,
+                    !countryCode.isEmpty
+                else { return }
+
+                if output.countryDetails?.isHighlighted ?? false {
+                    removeHighlitedCountry(countryCode: countryCode)
+                } else {
+                    highlighCountry(countryCode: countryCode)
+                }
+
+                output.countryDetails?.isHighlighted.toggle()
+            }
+            .store(in: &cancellables)
+    }
+
+    func observeShowMapTapped() {
+        input
+            .showMapTapped
+            .sink { [weak self] in
+                guard
+                    let self,
+                    let location = output.countryDetails?.location
+                else { return }
+                
+                let ountryLocationURL = "https://www.google.com/maps/@\(location.latitude),\(location.longitude),10z"
+                URLUtility.openURL(ountryLocationURL)
             }
             .store(in: &cancellables)
     }

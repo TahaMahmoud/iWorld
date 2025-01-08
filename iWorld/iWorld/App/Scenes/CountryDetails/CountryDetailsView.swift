@@ -28,6 +28,7 @@ struct CountryDetailsView: View {
                     color: DesignSystem.colors.gold,
                     padding: 12,
                     action: {
+                        input.saveCountryTapped.send()
                     }
                 )
                 .frame(width: 44, height: 44)
@@ -37,6 +38,7 @@ struct CountryDetailsView: View {
                     color: DesignSystem.colors.dangor,
                     padding: 12,
                     action: {
+                        input.highlightCountryTapped.send()
                     }
                 )
                 .frame(width: 44, height: 44)
@@ -57,6 +59,11 @@ struct CountryDetailsView: View {
             makeBorderCountriesView()
 
             Spacer()
+        }
+        .alert(output.errorMessage, isPresented: $output.showError) {
+            Button("OK", role: .cancel) {
+                output.showError = false
+            }
         }
         .padding(.top, 16)
         .padding(.horizontal, 20)
@@ -91,6 +98,7 @@ struct CountryDetailsView: View {
                 Spacer()
 
                 Button(action: {
+                    input.showMapTapped.send()
                 }, label: {
                     Text("Show Map")
                         .font(Font.gellix(weight: .bold, size: 14))
