@@ -8,6 +8,7 @@
 import Combine
 import Core
 import Foundation
+import Factory
 
 protocol CountriesListViewModelProtocol {
     var input: CountriesListViewModel.Input { get }
@@ -56,39 +57,20 @@ class CountriesListViewModel: ViewModel, CountriesListViewModelProtocol {
     public let input: Input
     public let output: Output
 
-    private let getCountriesUseCase: GetCountriesUseCaseProtocol
-    private let getRegionsUseCase: GetRegionsUseCaseProtocol
+    @Injected(\.getCountriesUseCase) private var getCountriesUseCase
+    @Injected(\.getRegionsUseCase) private var getRegionsUseCase
 
-    private let highlightCountryUseCase: HighlightCountryUseCaseProtocol
-    private let removeHighlightUseCase: RemoveHighlightUseCaseProtocol
-    private let isHighlightedUseCase: IsHighlighedUseCaseProtocol
+    @Injected(\.highlightCountryUseCase) private var highlightCountryUseCase
+    @Injected(\.removeHighlightUseCase) private var removeHighlightUseCase
+    @Injected(\.isHighlightedUseCase) private var isHighlightedUseCase
 
-    private let saveCountryUseCase: SaveCountryUseCaseProtocol
-    private let removeFavouriteUseCase: RemoveFavouriteUseCaseProtocol
-    private let isSavedUseCase: IsSavedCountryUseCaseProtocol
+    @Injected(\.saveCountryUseCase) private var saveCountryUseCase
+    @Injected(\.removeFavouriteUseCase) private var removeFavouriteUseCase
+    @Injected(\.isSavedCountryUseCase) private var isSavedUseCase
 
-    init(
-        router: RouterProtocol,
-        getCountriesUseCase: GetCountriesUseCaseProtocol = DIContainer.getCountriesUseCase,
-        getRegionsUseCase: GetRegionsUseCaseProtocol = DIContainer.getRegionsUseCase,
-        highlightCountryUseCase: HighlightCountryUseCaseProtocol = DIContainer.highlightCountryUseCase,
-        removeHighlightUseCase: RemoveHighlightUseCaseProtocol = DIContainer.removeHighlightUseCase,
-        isHighlightedUseCase: IsHighlighedUseCaseProtocol = DIContainer.isHighlighedUseCase,
-        saveCountryUseCase: SaveCountryUseCaseProtocol = DIContainer.saveCountryUseCase,
-        removeFavouriteUseCase: RemoveFavouriteUseCaseProtocol = DIContainer.removeFavouriteUseCase,
-        isSavedUseCase: IsSavedCountryUseCaseProtocol = DIContainer.isSavedCountryUseCase
-    ) {
+    init(router: RouterProtocol) {
         input = .init()
         output = .init(router: router)
-
-        self.getCountriesUseCase = getCountriesUseCase
-        self.getRegionsUseCase = getRegionsUseCase
-        self.highlightCountryUseCase = highlightCountryUseCase
-        self.removeHighlightUseCase = removeHighlightUseCase
-        self.isHighlightedUseCase = isHighlightedUseCase
-        self.saveCountryUseCase = saveCountryUseCase
-        self.removeFavouriteUseCase = removeFavouriteUseCase
-        self.isSavedUseCase = isSavedUseCase
 
         super.init()
         setupObservables()

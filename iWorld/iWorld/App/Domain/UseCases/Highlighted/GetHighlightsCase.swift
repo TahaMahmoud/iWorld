@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import Factory
 
 protocol GetHighlightedCountriesUseCaseProtocol {
     func execute() -> [Country]
 }
 
 struct GetHighlightedCountriesUseCase: GetHighlightedCountriesUseCaseProtocol {
-    let repository: CountriesRepositoryProtocol
-
-    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
-        self.repository = repository
-    }
+    @Injected(\.countriesRepo) private var repository
 
     func execute() -> [Country] {
         repository.getHighlightedCountries()

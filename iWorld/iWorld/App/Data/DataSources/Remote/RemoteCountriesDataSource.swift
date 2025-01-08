@@ -7,19 +7,14 @@
 
 import Foundation
 import Networking
+import Factory
 
 protocol RemoteCountriesDataSourceProtocol {
     func fetchCountries() async -> [Country]
 }
 
 struct RemoteCountriesDataSource: RemoteCountriesDataSourceProtocol {
-    private let networkingManger: NetworkManagerProtocol
-
-    public init(networkingManger: NetworkManagerProtocol = NetworkManager(
-        responseHandler: NetworkResponseHandler(), authProvider: nil
-    )) {
-        self.networkingManger = networkingManger
-    }
+    @Injected(\.networkManager) private var networkingManger
 
     func fetchCountries() async -> [Country] {
         let endpoint = CountriesEndpoint.allCountries

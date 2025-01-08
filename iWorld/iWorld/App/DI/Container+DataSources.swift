@@ -6,16 +6,14 @@
 //
 
 import Foundation
-import Networking
+import Factory
 
-extension DIContainer {
-    static var remoteDataSource: RemoteCountriesDataSourceProtocol {
-        RemoteCountriesDataSource(networkingManger: NetworkManager(
-            responseHandler: NetworkResponseHandler(), authProvider: nil
-        ))
+extension Container {
+    var remoteDataSource: Factory<RemoteCountriesDataSourceProtocol> {
+        self { RemoteCountriesDataSource() }.shared
     }
 
-    static var localDataSource: LocalCountriesDataSourceProtocol {
-        LocalCountriesDataSource()
+    var localDataSource: Factory<LocalCountriesDataSourceProtocol> {
+        self { LocalCountriesDataSource() }.shared
     }
 }

@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import Factory
 
 protocol GetCountryDetailsUseCaseProtocol {
     func execute(countyCode: String) -> Country?
 }
 
 struct GetCountryDetailsUseCase: GetCountryDetailsUseCaseProtocol {
-    private let repository: CountriesRepositoryProtocol
-
-    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
-        self.repository = repository
-    }
+    @Injected(\.countriesRepo) private var repository
 
     func execute(countyCode: String) -> Country? {
         let countries = repository.getCountries()

@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import Factory
 
 protocol RemoveFavouriteUseCaseProtocol {
     func execute(countryCode: String)
 }
 
 struct RemoveFavouriteUseCase: RemoveFavouriteUseCaseProtocol {
-    let repository: CountriesRepositoryProtocol
-
-    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
-        self.repository = repository
-    }
+    @Injected(\.countriesRepo) private var repository
 
     func execute(countryCode: String) {
         repository.removeFromSaved(withCode: countryCode)

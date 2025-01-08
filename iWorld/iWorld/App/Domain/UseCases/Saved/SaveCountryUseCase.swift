@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import Factory
 
 protocol SaveCountryUseCaseProtocol {
     func execute(countryCode: String)
 }
 
 struct SaveCountryUseCase: SaveCountryUseCaseProtocol {
-    let repository: CountriesRepositoryProtocol
-
-    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
-        self.repository = repository
-    }
+    @Injected(\.countriesRepo) private var repository
 
     func execute(countryCode: String) {
         repository.saveCountry(withCode: countryCode)

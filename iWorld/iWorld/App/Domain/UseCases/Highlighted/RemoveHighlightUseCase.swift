@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import Factory
 
 protocol RemoveHighlightUseCaseProtocol {
     func execute(countryCode: String)
 }
 
 struct RemoveHighlightUseCase: RemoveHighlightUseCaseProtocol {
-    let repository: CountriesRepositoryProtocol
-
-    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
-        self.repository = repository
-    }
+    @Injected(\.countriesRepo) private var repository
 
     func execute(countryCode: String) {
         repository.removeFromHighlighted(withCode: countryCode)

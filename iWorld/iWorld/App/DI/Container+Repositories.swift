@@ -8,14 +8,8 @@
 import Foundation
 import Factory
 
-class DIContainer {
-}
-
-extension DIContainer {
-    static var countriesRepo: CountriesRepositoryProtocol {
-        CountriesRepository(
-            remoteCountriesDataSource: DIContainer.remoteDataSource,
-            localCountriesDataSource: DIContainer.localDataSource
-        )
+extension Container {
+    var countriesRepo: Factory<CountriesRepositoryProtocol> {
+        self { CountriesRepository() } .shared
     }
 }

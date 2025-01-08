@@ -47,6 +47,7 @@ struct CountryDetailsView: View {
                     }
                 }
             }
+
             makeCountryDetails()
             makeBorderCountriesView()
         }

@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import Factory
 
 protocol IsHighlighedUseCaseProtocol {
     func execute(countryCode: String) -> Bool
 }
 
 struct IsHighlighedUseCase: IsHighlighedUseCaseProtocol {
-    let repository: CountriesRepositoryProtocol
-
-    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
-        self.repository = repository
-    }
+    @Injected(\.countriesRepo) private var repository
 
     func execute(countryCode: String) -> Bool {
         guard !(countryCode.isEmpty) else { return false }

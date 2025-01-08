@@ -6,20 +6,15 @@
 //
 
 import Foundation
+import Factory
 
 class CountriesRepository: CountriesRepositoryProtocol {
-    private var remoteCountriesDataSource: RemoteCountriesDataSourceProtocol
-    private var localCountriesDataSource: LocalCountriesDataSourceProtocol
+    @Injected(\.remoteDataSource) private var remoteCountriesDataSource
+    @Injected(\.localDataSource) private var localCountriesDataSource
 
     var counrties: [Country] = []
 
-    init(
-        remoteCountriesDataSource: RemoteCountriesDataSourceProtocol = DIContainer.remoteDataSource,
-        localCountriesDataSource: LocalCountriesDataSourceProtocol = DIContainer.localDataSource
-    ) {
-        self.remoteCountriesDataSource = remoteCountriesDataSource
-        self.localCountriesDataSource = localCountriesDataSource
-
+    init() {
         loadCountriesData()
     }
 

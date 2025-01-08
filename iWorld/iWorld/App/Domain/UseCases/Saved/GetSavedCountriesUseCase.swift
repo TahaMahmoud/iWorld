@@ -6,17 +6,14 @@
 //
 
 import Foundation
+import Factory
 
 protocol GetSavedCountriesUseCaseProtocol {
     func execute(limit: Int?) -> [Country]
 }
 
 struct GetSavedCountriesUseCase: GetSavedCountriesUseCaseProtocol {
-    let repository: CountriesRepositoryProtocol
-
-    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
-        self.repository = repository
-    }
+    @Injected(\.countriesRepo) private var repository
 
     func execute(limit: Int?) -> [Country] {
         repository.getSavedCountries(limit: limit)
