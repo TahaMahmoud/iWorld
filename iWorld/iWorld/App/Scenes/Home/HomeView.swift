@@ -54,7 +54,7 @@ struct HomeView: View {
         }
         .onReceive(output.$showSavedCountries) { showSavedCountries in
             if showSavedCountries {
-                router.navigate(to: .countriesList)
+                router.navigate(to: .savedCountries)
             }
         }
         .onReceive(output.$selectedCountryCode) { selectedCountryCode in
@@ -164,7 +164,7 @@ struct HomeView: View {
                         }, label: {
                             makeHighlightedCountryView(country: country)
                                 .cornerRadius(16)
-                                .frame(height: output.highlightedCountries.count > 1 ? 200 : UIScreen.main.bounds.size.width - 32)
+                                .frame(height: 200)
                                 .shadow(color: DesignSystem.colors.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         })
                     }
