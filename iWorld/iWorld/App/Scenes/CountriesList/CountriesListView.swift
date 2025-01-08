@@ -170,7 +170,3 @@ struct CountriesListView: View {
         .cornerRadius(12)
     }
 }
-
-#Preview {
-    CountriesListView(viewModel: CountriesListViewModel())
-}

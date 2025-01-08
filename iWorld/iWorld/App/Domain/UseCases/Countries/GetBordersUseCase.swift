@@ -14,7 +14,7 @@ protocol GetBordersUseCaseProtocol {
 struct GetBordersUseCase: GetBordersUseCaseProtocol {
     private let repository: CountriesRepositoryProtocol
 
-    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
+    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
         self.repository = repository
     }
 

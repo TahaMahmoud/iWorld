@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol GetHighlightedCountriesProtocol {
+protocol GetHighlightedCountriesUseCaseProtocol {
     func execute() -> [Country]
 }
 
-struct GetHighlightedCountries: GetHighlightedCountriesProtocol {
+struct GetHighlightedCountriesUseCase: GetHighlightedCountriesUseCaseProtocol {
     let repository: CountriesRepositoryProtocol
 
-    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
+    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
         self.repository = repository
     }
 

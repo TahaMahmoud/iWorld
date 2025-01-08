@@ -32,6 +32,12 @@ extension CountriesListViewModel {
         @Published var state: ViewState = .loading
         @Published var countries: [CountryViewModel] = []
         @Published var regions: [Region] = []
+
+        let router: RouterProtocol
+
+        init(router: RouterProtocol) {
+            self.router = router
+        }
     }
 }
 
@@ -61,17 +67,18 @@ class CountriesListViewModel: ViewModel, CountriesListViewModelProtocol {
     private let isSavedUseCase: IsSavedCountryUseCaseProtocol
 
     init(
-        getCountriesUseCase: GetCountriesUseCaseProtocol = GetCountriesUseCase(),
-        getRegionsUseCase: GetRegionsUseCaseProtocol = GetRegionsUseCase(),
-        highlightCountryUseCase: HighlightCountryUseCaseProtocol = HighlightCountryUseCase(),
-        removeHighlightUseCase: RemoveHighlightUseCaseProtocol = RemoveHighlightUseCase(),
-        isHighlightedUseCase: IsHighlighedUseCaseProtocol = IsHighlighedUseCase(),
-        saveCountryUseCase: SaveCountryUseCaseProtocol = SaveCountryUseCase(),
-        removeFavouriteUseCase: RemoveFavouriteUseCaseProtocol = RemoveFavouriteUseCase(),
-        isSavedUseCase: IsSavedCountryUseCaseProtocol = IsSavedCountryUseCase()
+        router: RouterProtocol,
+        getCountriesUseCase: GetCountriesUseCaseProtocol = DIContainer.getCountriesUseCase,
+        getRegionsUseCase: GetRegionsUseCaseProtocol = DIContainer.getRegionsUseCase,
+        highlightCountryUseCase: HighlightCountryUseCaseProtocol = DIContainer.highlightCountryUseCase,
+        removeHighlightUseCase: RemoveHighlightUseCaseProtocol = DIContainer.removeHighlightUseCase,
+        isHighlightedUseCase: IsHighlighedUseCaseProtocol = DIContainer.isHighlighedUseCase,
+        saveCountryUseCase: SaveCountryUseCaseProtocol = DIContainer.saveCountryUseCase,
+        removeFavouriteUseCase: RemoveFavouriteUseCaseProtocol = DIContainer.removeFavouriteUseCase,
+        isSavedUseCase: IsSavedCountryUseCaseProtocol = DIContainer.isSavedCountryUseCase
     ) {
         input = .init()
-        output = .init()
+        output = .init(router: router)
 
         self.getCountriesUseCase = getCountriesUseCase
         self.getRegionsUseCase = getRegionsUseCase
@@ -122,8 +129,20 @@ class CountriesListViewModel: ViewModel, CountriesListViewModelProtocol {
 private extension CountriesListViewModel {
     func setupObservables() {
         observeAppear()
+        observeBackTapped()
         observeRegionChanged()
         observeSearchTextChanged()
+    }
+
+    func observeBackTapped() {
+        input
+            .backTapped
+            .sink { [weak self] in
+                guard let self else { return }
+
+                output.router.navigateBack()
+            }
+            .store(in: &cancellables)
     }
 
     func observeAppear() {

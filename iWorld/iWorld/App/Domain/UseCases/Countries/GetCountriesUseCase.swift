@@ -16,7 +16,7 @@ protocol GetCountriesUseCaseProtocol {
 struct GetCountriesUseCase: GetCountriesUseCaseProtocol {
     private let repository: CountriesRepositoryProtocol
 
-    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
+    init(repository: CountriesRepositoryProtocol = DIContainer.countriesRepo) {
         self.repository = repository
     }
 

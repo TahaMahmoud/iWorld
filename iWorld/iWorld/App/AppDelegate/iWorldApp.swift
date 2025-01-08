@@ -13,20 +13,20 @@ import Logger
 @main
 struct IMoviesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @ObservedObject var router = Router()
+    @ObservedObject var router: Router = Router()
 
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
                 OnboardingView()
-                .navigationDestination(for: Router.Destination.self) { destination in
+                .navigationDestination(for: Destination.self) { destination in
                     switch destination {
                     case .onboarding:
                         OnboardingView()
                     case .home:
                         EmptyView()
                     case .countriesList:
-                        CountriesListView(viewModel: CountriesListViewModel())
+                        CountriesListView(viewModel: CountriesListViewModel(router: router))
                     case let .countryDetails(countryCode):
                         EmptyView()
                     case .savedCountries:

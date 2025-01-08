@@ -5,8 +5,8 @@
 //  Created by Taha Mahmoud on 07/01/2025.
 //
 
-import SwiftUI
 import Core
+import SwiftUI
 
 public struct NavigationBarView: View {
     let title: String
@@ -19,12 +19,12 @@ public struct NavigationBarView: View {
         self.title = title
         self.backAction = backAction
     }
-    
+
     public var body: some View {
-        HStack {
-            Button(
-                action: backAction
-            ) {
+        Button(
+            action: backAction
+        ) {
+            HStack {
                 Image(.icBack)
             }
             .frame(width: 40, height: 40)
@@ -36,7 +36,6 @@ public struct NavigationBarView: View {
             Text(title)
                 .foregroundStyle(DesignSystem.colors.black)
                 .font(Font.gellix(weight: .regular, size: 14))
-                .padding(.top, 10)
 
             Spacer()
         }

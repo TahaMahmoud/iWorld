@@ -9,13 +9,13 @@ import Foundation
 
 class CountriesRepository: CountriesRepositoryProtocol {
     private var remoteCountriesDataSource: RemoteCountriesDataSourceProtocol
-    private var localCountriesDataSource: LocalCountriesDataSource
+    private var localCountriesDataSource: LocalCountriesDataSourceProtocol
 
     var counrties: [Country] = []
 
     init(
-        remoteCountriesDataSource: RemoteCountriesDataSourceProtocol = RemoteCountriesDataSource(),
-        localCountriesDataSource: LocalCountriesDataSource = LocalCountriesDataSource()
+        remoteCountriesDataSource: RemoteCountriesDataSourceProtocol = DIContainer.remoteDataSource,
+        localCountriesDataSource: LocalCountriesDataSourceProtocol = DIContainer.localDataSource
     ) {
         self.remoteCountriesDataSource = remoteCountriesDataSource
         self.localCountriesDataSource = localCountriesDataSource

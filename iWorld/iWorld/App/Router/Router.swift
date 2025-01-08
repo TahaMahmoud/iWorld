@@ -7,15 +7,21 @@
 
 import SwiftUI
 
-final class Router: ObservableObject {
-    public enum Destination: Codable, Hashable {
-        case onboarding
-        case home
-        case countriesList
-        case countryDetails(countryCode: String)
-        case savedCountries
-    }
+enum Destination: Codable, Hashable {
+    case onboarding
+    case home
+    case countriesList
+    case countryDetails(countryCode: String)
+    case savedCountries
+}
 
+protocol RouterProtocol {
+    func navigate(to destination: Destination)
+    func navigateBack()
+    func navigateToRoot()
+}
+
+final class Router: RouterProtocol, ObservableObject {
     @Published var navPath = NavigationPath()
 
     func navigate(to destination: Destination) {
