@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CountriesRepository: CountriesRepoProtocol {
+struct CountriesRepository: CountriesRepositoryProtocol {
     private var remoteCountriesDataSource: RemoteCountriesDataSourceProtocol
     private var localCountriesDataSource: LocalCountriesDataSource
 
@@ -33,7 +33,7 @@ struct CountriesRepository: CountriesRepoProtocol {
         []
     }
 
-    func getSavedCountries(limit: Int?) -> Countries {
+    func getSavedCountries(limit: Int? = nil) -> Countries {
         []
     }
 

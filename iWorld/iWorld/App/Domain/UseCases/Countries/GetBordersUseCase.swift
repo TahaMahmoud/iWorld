@@ -12,9 +12,9 @@ protocol GetBordersUseCaseProtocol {
 }
 
 struct GetBordersUseCase: GetBordersUseCaseProtocol {
-    private let repository: CountriesRepoProtocol
+    private let repository: CountriesRepositoryProtocol
 
-    init(repository: CountriesRepoProtocol = CountriesRepository()) {
+    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
         self.repository = repository
     }
 

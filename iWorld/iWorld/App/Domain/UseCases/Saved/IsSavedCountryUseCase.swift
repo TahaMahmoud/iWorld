@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+protocol IsSavedCountryUseCaseProtocol {
+    func execute(countryCode: String) -> Bool
+}
+
+struct IsSavedCountryUseCase: IsSavedCountryUseCaseProtocol {
+    let repository: CountriesRepositoryProtocol
+
+    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
+        self.repository = repository
+    }
+
+    func execute(countryCode: String) -> Bool {
+        let savedCountries = repository.getSavedCountries(limit: nil)
+
+        return !(savedCountries.filter {
+            $0.alpha3Code == countryCode
+        }.isEmpty)
+    }
+}

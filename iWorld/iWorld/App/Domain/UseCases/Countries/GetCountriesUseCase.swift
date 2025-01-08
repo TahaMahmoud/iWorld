@@ -14,9 +14,9 @@ protocol GetCountriesUseCaseProtocol {
 }
 
 struct GetCountriesUseCase: GetCountriesUseCaseProtocol {
-    private let repository: CountriesRepoProtocol
+    private let repository: CountriesRepositoryProtocol
 
-    init(repository: CountriesRepoProtocol = CountriesRepository()) {
+    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
         self.repository = repository
     }
 

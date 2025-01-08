@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+protocol IsHighlighedUseCaseProtocol {
+    func execute(countryCode: String) -> Bool
+}
+
+struct IsHighlighedUseCase: IsHighlighedUseCaseProtocol {
+    let repository: CountriesRepositoryProtocol
+
+    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
+        self.repository = repository
+    }
+
+    func execute(countryCode: String) -> Bool {
+        let highlighedCountries = repository.getHighlightedCountries()
+
+        return !(highlighedCountries.filter {
+            $0.alpha3Code == countryCode
+        }.isEmpty)
+    }
+}

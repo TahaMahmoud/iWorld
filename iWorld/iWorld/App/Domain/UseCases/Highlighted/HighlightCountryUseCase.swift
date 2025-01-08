@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+protocol HighlightCountryUseCaseProtocol {
+    func execute(countryCode: String)
+}
+
+struct HighlightCountryUseCase: HighlightCountryUseCaseProtocol {
+    let repository: CountriesRepositoryProtocol
+
+    init(repository: CountriesRepositoryProtocol = CountriesRepository()) {
+        self.repository = repository
+    }
+
+    func execute(countryCode: String) {
+        repository.highlightCountry(withCode: countryCode)
+    }
+}

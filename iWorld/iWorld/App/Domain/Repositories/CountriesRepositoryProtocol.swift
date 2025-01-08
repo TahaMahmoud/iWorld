@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CountriesRepoProtocol {
+protocol CountriesRepositoryProtocol {
     mutating func fetchCountriesData() async throws
 
     func getCountries() -> Countries
