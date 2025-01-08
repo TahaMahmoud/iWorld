@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @EnvironmentObject var router: Router
-    
+
     var body: some View {
         ZStack {
             Image(.onboarding)

@@ -131,7 +131,11 @@ struct CountriesListView: View {
         ScrollView(showsIndicators: false) {
             LazyVStack {
                 ForEach(output.countries, id: \.id) { country in
-                    makeCountryCardView(country: country)
+                    Button(action: {
+                        input.countryTapped.send(country.id)
+                    }, label: {
+                        makeCountryCardView(country: country)
+                    })
                 }
             }
         }
@@ -158,13 +162,14 @@ struct CountriesListView: View {
             .frame(width: 32, height: 32)
 
             IconButton(
-                icon: Image(systemName: country.isSaved ? "heart.fill" : "heart"),
+                icon: Image(systemName: country.isHighlighted ? "heart.fill" : "heart"),
                 color: DesignSystem.colors.dangor,
                 action: {
                 }
             )
             .frame(width: 32, height: 32)
         }
+        .shadow(color: DesignSystem.colors.black.opacity(0.2), radius: 10, x: 0, y: 20)
         .padding(12)
         .background(DesignSystem.colors.primary)
         .cornerRadius(12)

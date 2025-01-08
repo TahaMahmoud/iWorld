@@ -28,7 +28,7 @@ struct IMoviesApp: App {
                     case .countriesList:
                         CountriesListView(viewModel: CountriesListViewModel(router: router))
                     case let .countryDetails(countryCode):
-                        EmptyView()
+                        CountryDetailsView(viewModel: CountryDetailsViewModel(countryCode: countryCode, router: router))
                     case .savedCountries:
                         EmptyView()
                     }

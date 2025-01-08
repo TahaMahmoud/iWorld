@@ -6,6 +6,10 @@
 //
 
 import Foundation
+import Factory
+
+class DIContainer {
+}
 
 extension DIContainer {
     static var countriesRepo: CountriesRepositoryProtocol {

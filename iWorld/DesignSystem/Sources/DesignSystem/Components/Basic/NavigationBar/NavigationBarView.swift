@@ -21,15 +21,15 @@ public struct NavigationBarView: View {
     }
 
     public var body: some View {
-        Button(
-            action: backAction
-        ) {
-            HStack {
+        HStack {
+            Button(
+                action: backAction
+            ) {
                 Image(.icBack)
+                    .frame(width: 40, height: 40)
+                    .background(DesignSystem.colors.secondary)
+                    .clipShape(RoundedCorner(radius: 8))
             }
-            .frame(width: 40, height: 40)
-            .background(DesignSystem.colors.secondary)
-            .clipShape(RoundedCorner(radius: 8))
 
             Spacer()
 

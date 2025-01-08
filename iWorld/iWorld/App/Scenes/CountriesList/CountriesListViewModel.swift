@@ -20,6 +20,7 @@ extension CountriesListViewModel {
     class Input: ObservableObject {
         let viewOnAppear: AnyUIEvent<Void> = .create()
         let backTapped: AnyUIEvent<Void> = .create()
+        let countryTapped: AnyUIEvent<String?> = .create()
         @Published var searchText: String = ""
         @Published var selectedRegion: Region = .africa
     }
@@ -132,6 +133,7 @@ private extension CountriesListViewModel {
         observeBackTapped()
         observeRegionChanged()
         observeSearchTextChanged()
+        observeCountryTapped()
     }
 
     func observeBackTapped() {
@@ -183,6 +185,20 @@ private extension CountriesListViewModel {
                 ))
 
                 output.state = output.countries.isEmpty ? .empty : .loaded
+            }
+            .store(in: &cancellables)
+    }
+
+    func observeCountryTapped() {
+        input
+            .countryTapped
+            .sink { [weak self] countryCode in
+                guard
+                    let self,
+                    let countryCode, !countryCode.isEmpty
+                else { return }
+
+                output.router.navigate(to: .countryDetails(countryCode: countryCode))
             }
             .store(in: &cancellables)
     }

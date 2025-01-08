@@ -34,7 +34,7 @@ class CountriesRepository: CountriesRepositoryProtocol {
     }
 
     func getCountries() -> [Country] {
-        return counrties
+        counrties
     }
 
     func getHighlightedCountries() -> [Country] {

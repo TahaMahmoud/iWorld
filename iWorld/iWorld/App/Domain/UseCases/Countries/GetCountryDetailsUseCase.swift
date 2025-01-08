@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GetCountryDetailsUseCaseProtocol {
-    func execute(countyCode: String) throws -> Country
+    func execute(countyCode: String) -> Country?
 }
 
 struct GetCountryDetailsUseCase: GetCountryDetailsUseCaseProtocol {
@@ -18,15 +18,11 @@ struct GetCountryDetailsUseCase: GetCountryDetailsUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(countyCode: String) throws -> Country {
+    func execute(countyCode: String) -> Country? {
         let countries = repository.getCountries()
 
         let country = countries.first {
             $0.alpha3Code == countyCode
-        }
-
-        guard let country else {
-            throw AppError.countryDetailsNotAvailable
         }
 
         return country
