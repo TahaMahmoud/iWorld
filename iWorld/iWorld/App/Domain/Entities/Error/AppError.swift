@@ -8,4 +8,5 @@
 enum AppError: Error {
     case unexpected
     case locationNotAvailable
+    case countryDetailsNotAvailable
 }

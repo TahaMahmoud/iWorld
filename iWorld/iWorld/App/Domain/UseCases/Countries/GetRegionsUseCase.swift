@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+protocol GetRegionsUseCaseProtocol {
+    func execute() -> [Region]
+}
+
+struct GetRegionsUseCase: GetRegionsUseCaseProtocol {
+    func execute() -> [Region] {
+        Region.allCases
+    }
+}

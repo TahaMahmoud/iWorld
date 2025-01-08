@@ -6,3 +6,29 @@
 //
 
 import Foundation
+
+protocol GetCountryDetailsUseCaseProtocol {
+    func execute(countyCode: String) throws -> Country
+}
+
+struct GetCountryDetailsUseCase: GetCountryDetailsUseCaseProtocol {
+    private let repository: CountriesRepoProtocol
+
+    init(repository: CountriesRepoProtocol = CountriesRepository()) {
+        self.repository = repository
+    }
+
+    func execute(countyCode: String) throws -> Country {
+        let countries = repository.getCountries()
+
+        let country = countries.first {
+            $0.alpha3Code == countyCode
+        }
+
+        guard let country else {
+            throw AppError.countryDetailsNotAvailable
+        }
+
+        return country
+    }
+}
