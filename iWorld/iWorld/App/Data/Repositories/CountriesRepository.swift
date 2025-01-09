@@ -37,7 +37,13 @@ class CountriesRepository: CountriesRepositoryProtocol {
     }
 
     func getSavedCountries(limit: Int? = nil) -> [Country] {
-        localCountriesDataSource.getSaved()
+        let savedCountries = localCountriesDataSource.getSaved()
+
+        guard let limit else {
+            return savedCountries
+        }
+
+        return Array(savedCountries.prefix(limit))
     }
 
     func highlightCountry(withCode countryCode: String) {

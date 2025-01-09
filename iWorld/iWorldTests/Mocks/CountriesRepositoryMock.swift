@@ -10,7 +10,7 @@ import Foundation
 
 class CountriesRepositoryMock: CountriesRepositoryProtocol {
     var countries: [Country] = []
-    var highlighedCountries: [Country] = []
+    var highlightedCountries: [Country] = []
     var savedCountries: [Country] = []
 
     init(countries: [Country] = []) {
@@ -30,28 +30,34 @@ class CountriesRepositoryMock: CountriesRepositoryProtocol {
     }
 
     func getHighlightedCountries() -> [Country] {
-        return highlighedCountries
+        return highlightedCountries
     }
 
     func getSavedCountries(limit: Int?) -> [Country] {
-        return savedCountries
+        guard let limit else {
+            return savedCountries
+        }
+
+        return Array(savedCountries.prefix(limit))
     }
 
     func highlightCountry(withCode countryCode: String) {
-        if let country = countries.first(where: { $0.id == countryCode }) {
-            highlighedCountries.append(country)
+        if let country = countries.first(where: { $0.id == countryCode }),
+           highlightedCountries.contains(country) == false {
+            highlightedCountries.append(country)
         }
     }
 
     func saveCountry(withCode countryCode: String) {
-        if let country = countries.first(where: { $0.id == countryCode }) {
+        if let country = countries.first(where: { $0.id == countryCode }),
+           savedCountries.contains(country) == false {
             savedCountries.append(country)
         }
     }
 
     func removeFromHighlighted(withCode countryCode: String) {
-        if let country = highlighedCountries.first(where: { $0.id == countryCode }) {
-            highlighedCountries.removeAll(where: { $0.id == countryCode })
+        if let country = highlightedCountries.first(where: { $0.id == countryCode }) {
+            highlightedCountries.removeAll(where: { $0.id == countryCode })
         }
     }
 
