@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		EE2C65EB2D2DBF1F004CC182 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C65EA2D2DBF1F004CC182 /* DesignSystem */; };
 		EE2C675B2D2EDAF2004CC182 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C675A2D2EDAF2004CC182 /* Factory */; };
+		EE2C68B22D2FC921004CC182 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C68B12D2FC921004CC182 /* Core */; };
+		EE2C68B42D2FC921004CC182 /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C68B32D2FC921004CC182 /* DataPersistence */; };
+		EE2C68B62D2FC921004CC182 /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C68B52D2FC921004CC182 /* Logger */; };
+		EE2C68B82D2FC921004CC182 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C68B72D2FC921004CC182 /* Networking */; };
+		EE2C68BA2D2FC921004CC182 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C68B92D2FC921004CC182 /* DesignSystem */; };
+		EE2C68BC2D2FC921004CC182 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C68BB2D2FC921004CC182 /* Factory */; };
 		EEF8CE9A2D2D8FA8002D22AF /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE992D2D8FA8002D22AF /* Core */; };
 		EEF8CE9C2D2D8FA8002D22AF /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9B2D2D8FA8002D22AF /* DataPersistence */; };
 		EEF8CE9E2D2D8FA8002D22AF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8CE9D2D2D8FA8002D22AF /* Logger */; };
@@ -87,6 +93,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE2C68BA2D2FC921004CC182 /* DesignSystem in Frameworks */,
+				EE2C68B62D2FC921004CC182 /* Logger in Frameworks */,
+				EE2C68B42D2FC921004CC182 /* DataPersistence in Frameworks */,
+				EE2C68BC2D2FC921004CC182 /* Factory in Frameworks */,
+				EE2C68B82D2FC921004CC182 /* Networking in Frameworks */,
+				EE2C68B22D2FC921004CC182 /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,12 +112,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE2C68B02D2FC921004CC182 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EEF8CDC22D2D83BC002D22AF = {
 			isa = PBXGroup;
 			children = (
 				EEF8CDCD2D2D83BC002D22AF /* iWorld */,
 				EEF8CDE02D2D83BF002D22AF /* iWorldTests */,
 				EEF8CDEA2D2D83BF002D22AF /* iWorldUITests */,
+				EE2C68B02D2FC921004CC182 /* Frameworks */,
 				EEF8CDCC2D2D83BC002D22AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -170,6 +190,12 @@
 			);
 			name = iWorldTests;
 			packageProductDependencies = (
+				EE2C68B12D2FC921004CC182 /* Core */,
+				EE2C68B32D2FC921004CC182 /* DataPersistence */,
+				EE2C68B52D2FC921004CC182 /* Logger */,
+				EE2C68B72D2FC921004CC182 /* Networking */,
+				EE2C68B92D2FC921004CC182 /* DesignSystem */,
+				EE2C68BB2D2FC921004CC182 /* Factory */,
 			);
 			productName = iWorldTests;
 			productReference = EEF8CDDD2D2D83BF002D22AF /* iWorldTests.xctest */;
@@ -526,7 +552,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GLBMX2MFLL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taha.iWorldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -545,7 +571,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GLBMX2MFLL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.taha.iWorldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -659,6 +685,36 @@
 			productName = DesignSystem;
 		};
 		EE2C675A2D2EDAF2004CC182 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE2C67592D2EDAF2004CC182 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		EE2C68B12D2FC921004CC182 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */;
+			productName = Core;
+		};
+		EE2C68B32D2FC921004CC182 /* DataPersistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */;
+			productName = DataPersistence;
+		};
+		EE2C68B52D2FC921004CC182 /* Logger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */;
+			productName = Logger;
+		};
+		EE2C68B72D2FC921004CC182 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEF8CE982D2D8FA8002D22AF /* XCLocalSwiftPackageReference "Core" */;
+			productName = Networking;
+		};
+		EE2C68B92D2FC921004CC182 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE2C65E92D2DBF1F004CC182 /* XCLocalSwiftPackageReference "DesignSystem" */;
+			productName = DesignSystem;
+		};
+		EE2C68BB2D2FC921004CC182 /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE2C67592D2EDAF2004CC182 /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
