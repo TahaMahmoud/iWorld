@@ -30,7 +30,7 @@ struct GetCountryDetailsUseCase: GetCountryDetailsUseCaseProtocol {
         let countries = repository.getCountries()
 
         let country = countries.first {
-            $0.name == countryName
+            $0.name?.lowercased() == countryName.lowercased()
         }
 
         return country
