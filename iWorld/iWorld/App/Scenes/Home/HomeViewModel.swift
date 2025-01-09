@@ -7,8 +7,10 @@
 
 import Combine
 import Core
+import CoreLocation
 import Factory
 import Foundation
+import UIKit
 
 protocol HomeViewModelProtocol {
     var input: HomeViewModel.Input { get }
@@ -40,6 +42,7 @@ extension HomeViewModel {
         @Published var showSavedCountries: Bool = false
         @Published var showAllCountries: Bool = false
         @Published var selectedCountryCode: String?
+        @Published var currentLocation: String?
     }
 }
 
@@ -56,6 +59,8 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
     public let input: Input
     public let output: Output
 
+    @Injected(\.getCurrentLocationUseCase) private var getCurrentLocationUseCase
+
     @Injected(\.getHighlightedCountriesUseCase) private var getHighlightedCountriesUseCase
     @Injected(\.removeHighlightUseCase) private var removeHighlightUseCase
 
@@ -63,6 +68,8 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
     @Injected(\.removeFavouriteUseCase) private var removeFavouriteUseCase
 
     @Injected(\.getCountriesUseCase) private var getCountriesUseCase
+
+    private var locationDetails: LocationDetails?
 
     override init() {
         input = .init()
@@ -76,11 +83,20 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
         Task { @MainActor [weak self] in
             guard let self else { return }
 
-            output.highlightedCountries = mapCountries(countries: getHighlightedCountriesUseCase.execute())
-            output.savedCountries = mapCountries(countries: getSavedCountriesUseCase.execute(limit: 5))
-
             await getCountriesUseCase.execute(limit: nil)
             output.discoverCountries = mapCountries(countries: await getCountriesUseCase.execute(limit: 5))
+
+            do {
+                locationDetails = try await getCurrentLocationUseCase.execute()
+                output.currentLocation = "\(locationDetails?.cityName ?? ""), \(locationDetails?.countryName ?? "")"
+            } catch {
+                output.currentLocation = nil
+            }
+
+            output.highlightedCountries = mapCountries(
+                countries: getHighlightedCountriesUseCase.execute(currentCountryName: locationDetails?.countryName ?? "")
+            )
+            output.savedCountries = mapCountries(countries: getSavedCountriesUseCase.execute(limit: 5))
 
             output.state = .loaded
         }
@@ -110,6 +126,16 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
     func removeHighlitedCountry(countryCode: String) {
         removeHighlightUseCase.execute(countryCode: countryCode)
     }
+
+    func openAppSettings() {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl)
+        }
+    }
 }
 
 private extension HomeViewModel {
@@ -121,6 +147,7 @@ private extension HomeViewModel {
         observeSeeAllSavedTapped()
         observeSeeAllCountriesTapped()
         observeRemoveSavedTapped()
+        observeLocationPermissionChange()
     }
 
     func observeAppear() {
@@ -184,6 +211,8 @@ private extension HomeViewModel {
             .enableLocationTapped
             .sink { [weak self] _ in
                 guard let self else { return }
+
+                openAppSettings()
             }
             .store(in: &cancellables)
     }
@@ -206,6 +235,17 @@ private extension HomeViewModel {
                 guard let self else { return }
 
                 output.showAllCountries = true
+            }
+            .store(in: &cancellables)
+    }
+
+    func observeLocationPermissionChange() {
+        LocationManager.shared
+            .$authorisationStatus
+            .sink { [weak self] _ in
+                guard let self else { return }
+
+                loadCountriesData()
             }
             .store(in: &cancellables)
     }

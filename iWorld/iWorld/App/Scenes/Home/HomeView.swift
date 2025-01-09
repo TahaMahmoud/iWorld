@@ -120,19 +120,28 @@ struct HomeView: View {
             Spacer()
 
             Button(action: {
+                if output.currentLocation == nil {
+                    input.enableLocationTapped.send()
+                }
             }, label: {
                 HStack {
                     Image(.icLocation)
                         .resizable()
                         .frame(width: 16, height: 16)
 
-                    Text("Enable Location")
+                    Text((output.currentLocation == nil ? "Enable Location" : output.currentLocation) ?? "")
                         .font(Font.gellix(weight: .regular, size: 12))
                         .foregroundStyle(DesignSystem.colors.primaryGray)
 
                     Image(.icArrowRight)
                         .resizable()
                         .frame(width: 16, height: 16)
+                        .isHidden(output.currentLocation != nil, remove: true)
+
+                    Image(.icArrowRight)
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                        .isHidden(output.currentLocation == nil, remove: true)
                 }
             })
         }
@@ -176,7 +185,9 @@ struct HomeView: View {
     private func makeHighlightedCountryView(country: HomeViewModel.CountryViewModel) -> some View {
         ZStack(alignment: .bottom) {
             RemoteImage(url: country.flag, contentMode: .fill)
-                .frame(width: 180)
+                .frame(
+                    width: output.highlightedCountries.count < 2 ? UIScreen.main.bounds.width - 48 : 180
+                )
                 .cornerRadius(16)
 
             HStack(alignment: .bottom) {
@@ -189,15 +200,22 @@ struct HomeView: View {
                         .background(DesignSystem.colors.darkGray)
                         .clipShape(Capsule())
 
-                    Text(country.capital.prefix(10))
-                        .font(Font.gellix(weight: .regular, size: 12))
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 4)
-                        .foregroundStyle(DesignSystem.colors.white)
-                        .background(DesignSystem.colors.darkGray)
-                        .clipShape(Capsule())
+                    HStack(spacing: 5) {
+                        Image(.icLocationGold)
+                            .frame(width: 16, height: 16)
+
+                        Text(country.capital.prefix(10))
+                            .font(Font.gellix(weight: .regular, size: 12))
+                            .foregroundStyle(DesignSystem.colors.white)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .background(DesignSystem.colors.darkGray)
+                    .clipShape(Capsule())
+
                 }
                 .lineLimit(1)
+                .padding(.bottom, 30)
 
                 Spacer()
 
@@ -209,6 +227,7 @@ struct HomeView: View {
                         input.removeHighlightTapped.send(country)
                     }
                 )
+                .isHidden(output.highlightedCountries.count < 2, remove: true)
                 .frame(width: 30, height: 30)
             }
             .padding(.horizontal, 8)
@@ -295,7 +314,6 @@ struct HomeView: View {
                         Text(country.capital.prefix(10))
                             .font(Font.gellix(weight: .regular, size: 10))
                             .foregroundStyle(DesignSystem.colors.darkGray)
-
                     }
                 }
                 .lineLimit(1)

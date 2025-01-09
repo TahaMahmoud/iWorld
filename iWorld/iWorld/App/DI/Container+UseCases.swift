@@ -56,4 +56,8 @@ extension Container {
     var saveCountryUseCase: Factory<SaveCountryUseCaseProtocol> {
         self { SaveCountryUseCase() }.shared
     }
+
+    var getCurrentLocationUseCase: Factory<GetCurrentLocationUseCaseProtocol> {
+        self { GetCurrentLocationUseCase() }.shared
+    }
 }

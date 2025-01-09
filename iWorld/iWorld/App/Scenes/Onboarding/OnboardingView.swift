@@ -7,6 +7,7 @@
 
 import DesignSystem
 import SwiftUI
+import Core
 
 struct OnboardingView: View {
     @EnvironmentObject var router: Router
@@ -42,6 +43,9 @@ struct OnboardingView: View {
                 .padding(.bottom, 32)
             }
             .padding(.horizontal, 32)
+        }
+        .onAppear {
+            LocationManager.shared.requestAuthorisation()
         }
     }
 }
