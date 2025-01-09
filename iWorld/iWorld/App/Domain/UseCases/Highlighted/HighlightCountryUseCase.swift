@@ -18,7 +18,7 @@ struct HighlightCountryUseCase: HighlightCountryUseCaseProtocol {
 
     func execute(countryCode: String) throws {
         let highlights = repository.getHighlightedCountries()
-        guard highlights.count < highlighsLimit else {
+        guard highlights.count <= highlighsLimit else {
             throw AppError.highlightsLimitExceeded
         }
 

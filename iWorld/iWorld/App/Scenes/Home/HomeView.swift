@@ -138,7 +138,7 @@ struct HomeView: View {
                         .frame(width: 16, height: 16)
                         .isHidden(output.currentLocation != nil, remove: true)
 
-                    Image(.icArrowRight)
+                    Image(.icArrowDown)
                         .resizable()
                         .frame(width: 16, height: 16)
                         .isHidden(output.currentLocation == nil, remove: true)
@@ -215,7 +215,7 @@ struct HomeView: View {
 
                 }
                 .lineLimit(1)
-                .padding(.bottom, 30)
+                .padding(.bottom, output.highlightedCountries.count < 2 ? 30 : 0)
 
                 Spacer()
 
