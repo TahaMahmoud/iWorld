@@ -1,4 +1,5 @@
-# <img src="/Screenshots/AppIcon.png" width="40" height="50"> iWorld
+# iWorld 
+<img src="/Screenshots/AppIcon.png" width="80" height="100"> 
 
 ## <a name="intro"></a> Intro
 iWorld is an iOS application designed to demonstrate clean architecture principles practically. This app showcases various functionalities, and this documentation provides a detailed insight into its technical intricacies and design choices.
