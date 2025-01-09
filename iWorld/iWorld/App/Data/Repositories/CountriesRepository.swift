@@ -25,7 +25,11 @@ class CountriesRepository: CountriesRepositoryProtocol {
     }
 
     func fetchCountriesData() async {
-        countries = await remoteCountriesDataSource.fetchCountries()
+        if Reachability.isConnectedToNetwork() {
+            countries = await remoteCountriesDataSource.fetchCountries()
+        } else {
+            countries = await localCountriesDataSource.getLocalCountries()
+        }
     }
 
     func getCountries() -> [Country] {

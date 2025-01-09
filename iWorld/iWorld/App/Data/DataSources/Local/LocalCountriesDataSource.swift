@@ -7,9 +7,10 @@
 
 import Factory
 import Foundation
+import Networking
 
 protocol LocalCountriesDataSourceProtocol {
-    func getLocalCountries() -> [Country]
+    func getLocalCountries() async -> [Country]
 
     func getHighlighted() -> [Country]
     func getSaved() -> [Country]
@@ -26,9 +27,23 @@ struct LocalCountriesDataSource: LocalCountriesDataSourceProtocol {
     private let savedKey: String = "iworld-saved"
 
     @Injected(\.dataManager) private var dataManager
+    @Injected(\.networkManager) private var networkingManger
 
-    func getLocalCountries() -> [Country] {
-        []
+    func getLocalCountries() async -> [Country] {
+        let endpoint = LocalCountriesEndpoint.allCountries
+
+        let result: Result<[Country], NetworkRequestError<AppError>>
+        result = await networkingManger.executeRequest(
+            endpoint,
+            appErrors: nil
+        ).result
+
+        switch result {
+        case let .success(countries):
+            return countries
+        case .failure:
+            return []
+        }
     }
 
     func getHighlighted() -> [Country] {

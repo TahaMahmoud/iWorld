@@ -184,7 +184,7 @@ struct HomeView: View {
 
     private func makeHighlightedCountryView(country: HomeViewModel.CountryViewModel) -> some View {
         ZStack(alignment: .bottom) {
-            RemoteImage(url: country.flag, contentMode: .fill)
+            RemoteImage(url: country.flag, placeholder: Image(.placholder), contentMode: .fill)
                 .frame(
                     width: output.highlightedCountries.count < 2 ? UIScreen.main.bounds.width - 48 : 180
                 )
@@ -274,7 +274,7 @@ struct HomeView: View {
     private func makeCountryView(country: HomeViewModel.CountryViewModel, isSaved: Bool) -> some View {
         VStack(spacing: 8) {
             ZStack(alignment: .bottom) {
-                RemoteImage(url: country.flag, contentMode: .fill)
+                RemoteImage(url: country.flag, placeholder: Image(.placholder), contentMode: .fill)
                     .frame(width: 170)
                     .cornerRadius(16)
 

@@ -17,7 +17,7 @@ struct RemoteCountriesDataSource: RemoteCountriesDataSourceProtocol {
     @Injected(\.networkManager) private var networkingManger
 
     func fetchCountries() async -> [Country] {
-        let endpoint = CountriesEndpoint.allCountries
+        let endpoint = RemoteCountriesEndpoint.allCountries
 
         let result: Result<[Country], NetworkRequestError<AppError>>
         result = await networkingManger.executeRequest(

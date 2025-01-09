@@ -45,7 +45,11 @@ struct CountryDetailsView: View {
                 .frame(width: 44, height: 44)
             }
 
-            RemoteImage(url: output.countryDetails?.flag ?? "", contentMode: .fit)
+            RemoteImage(
+                url: output.countryDetails?.flag ?? "",
+                placeholder: Image(.placholder),
+                contentMode: .fit
+            )
                 .cornerRadius(16)
                 .shadow(color: DesignSystem.colors.black.opacity(0.1), radius: 16, x: 0, y: 10)
                 .frame(height: 300)
@@ -148,7 +152,7 @@ struct CountryDetailsView: View {
                         input.borderCountrySelected.send(country.id)
                     }, label: {
                         VStack {
-                            RemoteImage(url: country.flag)
+                            RemoteImage(url: country.flag, placeholder: Image(.placholder))
                                 .frame(width: 32, height: 32)
                                 .cornerRadius(12)
 

@@ -113,7 +113,7 @@ struct FavouritesView: View {
 
     func makeCountryCardView(country: FavouritesViewModel.CountryViewModel) -> some View {
         HStack {
-            RemoteImage(url: country.flag)
+            RemoteImage(url: country.flag, placeholder: Image(.placholder))
                 .frame(width: 40, height: 40)
                 .clipShape(Circle())
 

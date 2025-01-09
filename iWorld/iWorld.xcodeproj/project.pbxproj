@@ -52,6 +52,13 @@
 			);
 			target = EEF8CDCA2D2D83BC002D22AF /* iWorld */;
 		};
+		EE5BA3D02D3012F20093C463 /* Exceptions for "iWorld" folder in "iWorldTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/Resources/Stubs/countries.json,
+			);
+			target = EEF8CDDC2D2D83BF002D22AF /* iWorldTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -59,6 +66,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				EE2C662B2D2DCA46004CC182 /* Exceptions for "iWorld" folder in "iWorld" target */,
+				EE5BA3D02D3012F20093C463 /* Exceptions for "iWorld" folder in "iWorldTests" target */,
 			);
 			path = iWorld;
 			sourceTree = "<group>";

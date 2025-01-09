@@ -1,19 +1,18 @@
 //
-//  CountriesEndpoint.swift
+//  LocalCountriesEndpoint.swift
 //  iWorld
 //
-//  Created by Taha Mahmoud on 08/01/2025.
+//  Created by Taha Mahmoud on 09/01/2025.
 //
 
-import Core
 import Foundation
 import Networking
 
-enum CountriesEndpoint {
+enum LocalCountriesEndpoint {
     case allCountries
 }
 
-extension CountriesEndpoint: RemoteEndpoint {
+extension LocalCountriesEndpoint: RemoteEndpoint {
     var baseUrl: URL {
         let baseURLString = "https://restcountries.com/v2"
         let baseURL = URL(string: baseURLString)
@@ -32,5 +31,9 @@ extension CountriesEndpoint: RemoteEndpoint {
         case .allCountries:
             return .get
         }
+    }
+
+    var type: EndpointType {
+        .localFile(bundle: .main, fileName: "countries")
     }
 }

@@ -86,12 +86,7 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
             await getCountriesUseCase.execute(limit: nil)
             output.discoverCountries = mapCountries(countries: await getCountriesUseCase.execute(limit: 5))
 
-            do {
-                locationDetails = try await getCurrentLocationUseCase.execute()
-                output.currentLocation = "\(locationDetails?.cityName ?? ""), \(locationDetails?.countryName ?? "")"
-            } catch {
-                output.currentLocation = nil
-            }
+            await handleLocation()
 
             output.highlightedCountries = mapCountries(
                 countries: getHighlightedCountriesUseCase.execute(currentCountryName: locationDetails?.countryName ?? "")
@@ -99,6 +94,17 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
             output.savedCountries = mapCountries(countries: getSavedCountriesUseCase.execute(limit: 5))
 
             output.state = .loaded
+        }
+    }
+
+    func handleLocation() async {
+        if Reachability.isConnectedToNetwork() {
+            do {
+                locationDetails = try await getCurrentLocationUseCase.execute()
+                output.currentLocation = "\(locationDetails?.cityName ?? ""), \(locationDetails?.countryName ?? "")"
+            } catch {
+                output.currentLocation = nil
+            }
         }
     }
 
