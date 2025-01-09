@@ -55,7 +55,7 @@ This Quick Start guide will get you up with the app.
 - Combine
 - [Factory](https://github.com/hmlongco/Factory): Dependency Injection third party.
 - Coordinator, Repository, Builder, Factory, Singleton patterns ...etc.
-- Navigation Path: iOS16-based Routing sultion.
+- Navigation Path: iOS16-based Routing solution.
 - SwiftLint
 
 # <a name="design-system"></a> Design System
