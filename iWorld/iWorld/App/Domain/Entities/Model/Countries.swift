@@ -7,10 +7,11 @@
 
 // swiftlint: disable identifier_name
 
-import Foundation
 import DataPersistence
+import Foundation
 
 // MARK: - Country
+
 struct Country: Codable, Identifiable, Cachable {
     var id: String { alpha3Code ?? UUID().uuidString }
 
@@ -37,20 +38,79 @@ struct Country: Codable, Identifiable, Cachable {
     let cioc: String?
     let independent: Bool?
     let gini: Double?
+
+    init(
+        name: String? = nil,
+        topLevelDomain: [String]? = nil,
+        alpha2Code: String? = nil,
+        alpha3Code: String? = nil,
+        callingCodes: [String]? = nil,
+        capital: String? = nil,
+        altSpellings: [String]? = nil,
+        subregion: String? = nil,
+        region: Region? = nil,
+        population: Int? = nil,
+        latlng: [Double]? = nil,
+        demonym: String? = nil,
+        area: Double? = nil,
+        timezones: [String]? = nil,
+        borders: [String]? = nil,
+        nativeName: String? = nil,
+        numericCode: String? = nil,
+        flags: Flags? = nil,
+        currencies: [Currency]? = nil,
+        languages: [Language]? = nil,
+        translations: Translations? = nil,
+        flag: String? = nil,
+        regionalBlocs: [RegionalBloc]? = nil,
+        cioc: String? = nil,
+        independent: Bool? = nil,
+        gini: Double? = nil
+    ) {
+        self.name = name
+        self.topLevelDomain = topLevelDomain
+        self.alpha2Code = alpha2Code
+        self.alpha3Code = alpha3Code
+        self.callingCodes = callingCodes
+        self.capital = capital
+        self.altSpellings = altSpellings
+        self.subregion = subregion
+        self.region = region
+        self.population = population
+        self.latlng = latlng
+        self.demonym = demonym
+        self.area = area
+        self.timezones = timezones
+        self.borders = borders
+        self.nativeName = nativeName
+        self.numericCode = numericCode
+        self.flags = flags
+        self.currencies = currencies
+        self.languages = languages
+        self.translations = translations
+        self.flag = flag
+        self.regionalBlocs = regionalBlocs
+        self.cioc = cioc
+        self.independent = independent
+        self.gini = gini
+    }
 }
 
 // MARK: - Currency
+
 struct Currency: Codable {
     let code, name, symbol: String?
 }
 
 // MARK: - Flags
+
 struct Flags: Codable {
     let svg: String?
     let png: String?
 }
 
 // MARK: - Language
+
 struct Language: Codable {
     let iso6391, iso6392, name, nativeName: String?
 
@@ -75,6 +135,7 @@ enum Region: String, Codable, CaseIterable, Identifiable {
 }
 
 // MARK: - RegionalBloc
+
 struct RegionalBloc: Codable {
     let acronym: String?
     let name: String?
@@ -83,6 +144,7 @@ struct RegionalBloc: Codable {
 }
 
 // MARK: - Translations
+
 struct Translations: Codable {
     let br, pt, nl, hr: String?
     let fa, de, es, fr: String?
