@@ -27,7 +27,7 @@ final class IsHighlighedUseCaseTests: iWorldTestCase {
         ]
 
         // Act
-        let isHighlighedUseCase = IsHighlighedUseCase()
+        let isHighlighedUseCase = IsHighlightedUseCase()
         let isHighlighted = isHighlighedUseCase.execute(countryCode: countryCode)
 
         // Assert
@@ -42,7 +42,7 @@ final class IsHighlighedUseCaseTests: iWorldTestCase {
         ]
 
         // Act
-        let isHighlighedUseCase = IsHighlighedUseCase()
+        let isHighlighedUseCase = IsHighlightedUseCase()
         let isHighlighted = isHighlighedUseCase.execute(countryCode: countryCode)
 
         // Assert
@@ -57,7 +57,7 @@ final class IsHighlighedUseCaseTests: iWorldTestCase {
         ]
 
         // Act
-        let isHighlighedUseCase = IsHighlighedUseCase()
+        let isHighlighedUseCase = IsHighlightedUseCase()
         let isHighlighted = isHighlighedUseCase.execute(countryCode: countryCode)
 
         // Assert

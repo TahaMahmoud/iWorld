@@ -8,11 +8,11 @@
 import Foundation
 import Factory
 
-protocol IsHighlighedUseCaseProtocol {
+protocol IsHighlightedUseCaseProtocol {
     func execute(countryCode: String) -> Bool
 }
 
-struct IsHighlighedUseCase: IsHighlighedUseCaseProtocol {
+struct IsHighlightedUseCase: IsHighlightedUseCaseProtocol {
     @Injected(\.countriesRepo) private var repository
 
     func execute(countryCode: String) -> Bool {

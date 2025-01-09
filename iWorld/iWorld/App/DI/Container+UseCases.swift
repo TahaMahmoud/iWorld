@@ -33,8 +33,8 @@ extension Container {
         self { HighlightCountryUseCase() }.shared
     }
 
-    var isHighlightedUseCase: Factory<IsHighlighedUseCaseProtocol> {
-        self { IsHighlighedUseCase() }.shared
+    var isHighlightedUseCase: Factory<IsHighlightedUseCaseProtocol> {
+        self { IsHighlightedUseCase() }.shared
     }
 
     var removeHighlightUseCase: Factory<RemoveHighlightUseCaseProtocol> {
