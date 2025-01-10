@@ -97,7 +97,7 @@ Initially, We had only the `System Logger` engine that `debug print` the log mes
 This layer is built to persist many types of data with **save, update, and remove** options, Initially it is built with only the **UserDefaults** to achieve the PoC, I know that this use case can't be persisted inside the UserDefaults, But for the sake of time I depended on the **DataManagerProtocol** to handle it later, And later I'll add the **CoreData, Realm, and SwiftData** managers.
 
 # <a name="app-architecture"></a> App Architecture
-This app is built using the  [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) guidelines and I separated the **Domain** and **Data** in separate Swift Packages to be reused inside the application, Giving us the required scalability level away from the presentation layer,
+This app is built using the  [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) guidelines and I will separate the **Domain** and **Data** in separate Swift Packages later to be reused inside the application, Giving us the required scalability level away from the presentation layer,
 And, the **Presentation** layer is on the app side and separated by **module/feature/screen**
 
 ## Domain layer
@@ -110,9 +110,6 @@ The Data layer consists of **DataSources, Endpoints, ReposImplementation, DTOs**
 ## Presentation Layer
 The Presentation layer is an app-side containing the Modules, Features, and screens.
 The presentation layer is built using the **I/O MVVM** presentation architecture.
-
-## How the App. & Layers communicating?
-As we are separating the **domain and data** layers from the application and presentation layer, We need to handle the communication between the layers and the application side, We have the CoreData library that enables the application side to setup the data with the configuration and inject the dependencies that the data package need to run, We have the AppConfig and the APIConfig for this mission.
 
 # <a name="io-mvvm"></a> I/O MVVM
 iWorld uses `I/O MVVM` (Input/Output Model-View-ViewModel) architecture. This is a clean architecture that emphasis separation of concerns and ease of maintainability.
