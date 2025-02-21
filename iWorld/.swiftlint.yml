@@ -1,0 +1,71 @@
+included:
+- "iWorld/**/*.swift"
+
+# Excluded
+identifier_name:
+  excluded:
+    - id
+    - ar
+    - en
+    - fr
+    - v1
+    - v2
+
+# Opt in rules
+opt_in_rules:
+  - indentation_width: 4
+  - operator_usage_whitespace
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - vertical_whitespace_between_cases
+  - number_separator
+  - sorted_enum_cases
+  - implicitly_unwrapped_optional
+  - force_unwrapping
+  - no_extension_access_modifier
+  - type_contents_order
+
+# Custom rules
+custom_rules:
+  blank_line_between_cases:
+    name: "Blank Line Between Switch Cases"
+    regex: '(?<!switch.*\n)(case[^\n]*\n\s*[^case].*\n\s*)case'
+    message: "There should be a blank line between switch cases."
+    severity: warning
+    correction: "Add a blank line between cases."
+
+  empty_line_required:
+    regex: "(?-s)[}]\n(?! *[}])(?!$)(?!\n)(?!.*(else|catch|do|get|set|\\.[a-zA-Z]+\\())(?![ ]*\\.|[ ]*\\))"
+    message: "Empty line is required after '}', except 'else', 'catch', 'do', 'get', 'set' or closing brace, or method call"
+    severity: warning
+
+  guard_if_multiline_condition:
+    regex: "(?-s)(guard|if) .*,"
+    message: "Guard and if statements with more than one condition should have every condition on a separate line"
+    severity: warning
+
+  no_objc_comments:
+    regex: "[/][*]"
+    message: "Do not use Objc-style comments. Use // or /// instead"
+    severity: warning
+
+  bool_comparison:
+    regex: "==[ ]*(true|false)"
+    message: "Do not compare Bool values with true or false"
+    severity: warning
+
+# Parameters
+line_length: 130
+
+# https://realm.github.io/SwiftLint/indentation_width.html
+indentation_width:
+  indentation_width: 2
+
+opening_brace:
+  allow_multiline_func: true
+
+todo:
+  severity: error
+
+type_contents_order:
+  order: [[type_alias, associated_type], [type_property], [case], [instance_property], [initializer], [type_method], [other_method]]
